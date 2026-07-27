@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marine Safety Monitor v.4 — Автономная система аналитики безопасности флота</title>
+    <title>Marine Safety Monitor v.5 — Система сбора, визуализации и прогнозирования инцидентов для управления безопасностью флота</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #1a1a2e;
             background-color: #f5f7fa;
         }
@@ -24,30 +24,48 @@
             padding: 0 20px;
         }
 
+        /* HEADER */
         .header {
-            background: linear-gradient(135deg, #0a192f 0%, #1e3a5f 100%);
+            background: linear-gradient(135deg, #0a192f 0%, #1a3a5f 100%);
             color: white;
-            padding: 60px 0;
+            padding: 64px 0 48px;
             text-align: center;
+            border-bottom: 4px solid #2dd4bf;
+        }
+
+        .header .version-badge {
+            display: inline-block;
+            background: #2dd4bf;
+            color: #0a192f;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 20px;
+            border-radius: 20px;
+            margin-bottom: 16px;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
         }
 
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 700px;
+        .header .subhead {
+            font-size: 1.15rem;
+            opacity: 0.88;
+            max-width: 720px;
             margin: 0 auto;
+            font-weight: 300;
         }
 
+        /* SECTIONS */
         .section {
-            padding: 60px 0;
-            border-bottom: 1px solid #e1e8ed;
+            padding: 56px 0;
+            border-bottom: 1px solid #e2e8ed;
         }
-
         .section:last-child {
             border-bottom: none;
         }
@@ -55,268 +73,811 @@
         .section-title {
             text-align: center;
             font-size: 2rem;
-            margin-bottom: 40px;
+            font-weight: 600;
             color: #0a192f;
+            margin-bottom: 8px;
         }
 
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.05rem;
+            color: #4a5a6e;
+            max-width: 680px;
+            margin: -4px auto 40px;
+        }
+
+        /* GRIDS */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
         }
 
+        .grid-2col {
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        }
+
+        /* CARDS */
         .card {
             background: white;
             border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            text-align: center;
+            padding: 30px 28px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #edf2f7;
+            transition: box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card .icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
         }
 
         .card h3 {
-            color: #1e3a5f;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0a192f;
+            margin-bottom: 8px;
         }
 
+        .card p {
+            font-size: 0.95rem;
+            color: #4a5a6e;
+            line-height: 1.5;
+        }
+
+        .card .badge {
+            display: inline-block;
+            background: #2dd4bf;
+            color: #0a192f;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            padding: 2px 14px;
+            border-radius: 12px;
+            margin-top: 12px;
+        }
+
+        .badge-orange {
+            background: #f59e0b;
+            color: #0a192f;
+        }
+
+        .badge-red {
+            background: #ef4444;
+            color: #ffffff;
+        }
+
+        .badge-blue {
+            background: #3b82f6;
+            color: #ffffff;
+        }
+
+        .badge-purple {
+            background: #8b5cf6;
+            color: #ffffff;
+        }
+
+        .badge-pink {
+            background: #ec4899;
+            color: #ffffff;
+        }
+
+        .badge-teal {
+            background: #14b8a6;
+            color: #ffffff;
+        }
+
+        /* MODULES */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 18px;
+        }
+
+        .module-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.15s ease;
+        }
+
+        .module-item:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .module-item .icon {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .module-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0a192f;
+        }
+
+        .module-item p {
+            font-size: 0.82rem;
+            color: #4a5a6e;
+            margin-top: 4px;
+        }
+
+        .module-item .badge {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: inline-block;
+            background: #2dd4bf;
+            color: #0a192f;
+            padding: 2px 12px;
+            border-radius: 12px;
+            margin-top: 8px;
+        }
+
+        /* STATS */
         .stats {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             flex-wrap: wrap;
-            gap: 30px;
-            text-align: center;
-            margin-top: 40px;
+            gap: 32px 56px;
+            margin-top: 8px;
         }
 
         .stat {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            min-width: 180px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
         }
 
         .stat-number {
             font-size: 2.8rem;
-            font-weight: bold;
-            color: #1e3a5f;
+            font-weight: 700;
+            color: #0a192f;
+            line-height: 1.2;
         }
 
         .stat-label {
-            color: #4a5568;
+            font-size: 0.95rem;
+            color: #4a5a6e;
         }
 
-        .screenshot {
-            background: #e2e8f0;
+        /* SCREENSHOT - ОБЪЕДИНЁННЫЙ БЛОК */
+        .screenshots-block {
+            background: #e8edf4;
             border-radius: 12px;
-            padding: 20px;
+            padding: 24px;
             text-align: center;
-            margin: 30px 0;
+            border: 1px solid #dce2ea;
+            margin: 8px 0;
         }
 
-        .screenshot img {
+        .screenshots-block .main-img {
             max-width: 100%;
             border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 6px;
         }
 
-        .screenshot-caption {
-            margin-top: 15px;
-            color: #4a5568;
-            font-style: italic;
+        .screenshots-block .caption {
+            margin-top: 14px;
+            color: #4a5a6e;
+            font-size: 0.9rem;
         }
 
-        .cta {
-            background: #1e3a5f;
-            color: white;
-            text-align: center;
+        .screenshots-block .caption strong {
+            color: #0a192f;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .screenshots-grid .mini-img {
+            background: #dce2ea;
+            border-radius: 8px;
+            padding: 12px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a5a6e;
+            font-size: 0.85rem;
+            border: 1px solid #c8d0da;
+        }
+
+        .screenshots-grid .mini-img img {
+            max-width: 100%;
+            border-radius: 6px;
+        }
+
+        /* WHY US — ВМЕСТО АРХИТЕКТУРЫ */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .why-item {
+            background: white;
             border-radius: 12px;
-            padding: 50px;
-            margin-top: 40px;
+            padding: 28px 24px;
+            text-align: center;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .why-item .icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .why-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0a192f;
+            margin-bottom: 6px;
+        }
+
+        .why-item p {
+            font-size: 0.9rem;
+            color: #4a5a6e;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, #0a192f 0%, #1a3a5f 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 48px 32px;
+            text-align: center;
+            margin-top: 8px;
+            border: 1px solid #2a4a6f;
         }
 
         .cta h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            max-width: 640px;
+            margin: 0 auto 14px;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        .cta .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2dd4bf;
+            margin: 14px 0;
         }
 
         .cta-button {
             display: inline-block;
             background: #2dd4bf;
             color: #0a192f;
-            padding: 14px 35px;
+            padding: 14px 44px;
             border-radius: 40px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: 0.3s;
-            margin-top: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s ease;
+            margin: 6px 6px 0;
+            border: none;
+            cursor: pointer;
         }
 
         .cta-button:hover {
             background: #14b8a6;
-            transform: scale(1.02);
         }
 
+        .cta-button-outline {
+            background: transparent;
+            border: 2px solid #2dd4bf;
+            color: white;
+        }
+
+        .cta-button-outline:hover {
+            background: #2dd4bf;
+            color: #0a192f;
+        }
+
+        /* CONTACTS */
         .contacts {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 20px;
+        }
+
+        .contacts p {
+            margin: 4px 0;
         }
 
         .contacts a {
-            color: #1e3a5f;
+            color: #1a3a5f;
             text-decoration: none;
-            margin: 0 10px;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
         }
 
+        .contacts a:hover {
+            border-bottom-color: #2dd4bf;
+        }
+
+        /* FOOTER */
         .footer {
             text-align: center;
-            padding: 30px;
+            padding: 30px 24px;
             background: #0a192f;
-            color: #94a3b8;
+            color: #7a8a9e;
+            font-size: 0.85rem;
+            margin-top: 16px;
+            border-top: 1px solid #1a3a5f;
+        }
+
+        .footer a {
+            color: #2dd4bf;
+            text-decoration: none;
+        }
+
+        /* COMPARISON LIST */
+        .check-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 6px;
+        }
+
+        .check-list li {
+            padding: 5px 0;
+            color: #3d4d5e;
+            font-size: 0.95rem;
+        }
+
+        .check-list .green {
+            color: #0a7a6b;
+            font-weight: 500;
+        }
+
+        .check-list .muted {
+            color: #8a9aa8;
+        }
+
+        /* CUSTOM MODULE BADGE */
+        .custom-module-badge {
+            display: inline-block;
+            background: #0a192f;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 4px 16px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
+        .custom-module-badge:hover {
+            background: #1a3a5f;
+        }
+
+        /* PERSPECTIVE MODULES GRID */
+        .perspective-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .perspective-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 24px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .perspective-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .perspective-card .icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .perspective-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0a192f;
+            margin-bottom: 6px;
+        }
+
+        .perspective-card p {
             font-size: 0.9rem;
-            margin-top: 40px;
+            color: #4a5a6e;
+            line-height: 1.5;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .header .subhead { font-size: 1rem; }
+            .section-title { font-size: 1.6rem; }
+            .grid { grid-template-columns: 1fr; }
+            .grid-2col { grid-template-columns: 1fr; }
+            .stats { gap: 20px; }
+            .stat-number { font-size: 2.2rem; }
+            .cta { padding: 32px 20px; }
+            .cta h3 { font-size: 1.3rem; }
+            .cta-button { display: block; margin: 8px auto; width: 80%; }
+            .modules-grid { grid-template-columns: 1fr 1fr; }
+            .screenshots-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr 1fr; }
+            .perspective-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .modules-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
     <div class="container">
+        <span class="version-badge">v.5 — новая версия</span>
         <h1>Marine Safety Monitor</h1>
-        <p>Версия 4.0: полностью автономная система аналитики безопасности для морского и речного флота.<br>Не требует браузера, облачных сервисов и постоянного подключения к интернету.</p>
+        <p class="subhead">Система сбора, визуализации и прогнозирования инцидентов для управления безопасностью морского и речного флота</p>
     </div>
 </div>
 
 <div class="container">
-    <!-- Проблема -->
-    <div class="section">
-        <h2 class="section-title">Как собирают данные сегодня?</h2>
+
+    <!-- ПРОБЛЕМА -->
+    <section class="section">
+        <h2 class="section-title">Данные есть — картины нет</h2>
         <div class="grid">
             <div class="card">
-                <h3>📄 Разрозненные источники</h3>
-                <p>Бумажные акты, Excel-файлы, журналы — данные разбросаны и не дают единой картины.</p>
+                <span class="icon">📄</span>
+                <h3>Разрозненные источники</h3>
+                <p>Бумажные акты, Excel-файлы, судовые журналы, разные базы в филиалах. Единая картина отсутствует.</p>
             </div>
             <div class="card">
-                <h3>⏱️ Отчёты занимают дни</h3>
-                <p>На подготовку сводного отчёта о безопасности по флоту уходит до 2 рабочих дней.</p>
+                <span class="icon">⏱️</span>
+                <h3>Отчёты занимают дни</h3>
+                <p>На сборку сводного отчёта по безопасности флота уходит <strong>до 2 рабочих дней</strong>.</p>
             </div>
             <div class="card">
-                <h3>📉 Риски накапливаются</h3>
-                <p>Аналитика запаздывает, проблемные суда и экипажи выявляются слишком поздно.</p>
+                <span class="icon">📉</span>
+                <h3>Аналитика запаздывает</h3>
+                <p>Тренды и проблемные суда выявляются с опозданием на недели и месяцы.</p>
+            </div>
+            <div class="card">
+                <span class="icon">📊</span>
+                <h3>Нет объективного среза</h3>
+                <p>Руководство получает только «лакированные» отчёты, а не реальную картину по флоту.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Решение v.4 -->
-    <div class="section">
-        <h2 class="section-title">Решение: Marine Safety Monitor v.4</h2>
-        <div class="grid">
+    <!-- РЕШЕНИЕ v.5 -->
+    <section class="section">
+        <h2 class="section-title">Решение: Marine Safety Monitor v.5</h2>
+        <p class="section-subtitle">Полностью автономная система «из коробки» для штаба и диспетчерской службы</p>
+        <div class="grid grid-2col">
             <div class="card">
-                <h3>🤖 Автоматический сбор</h3>
-                <p>ETL-процессор на Python загружает и очищает данные из любых источников (Excel, CSV).</p>
+                <span class="icon">⚙️</span>
+                <h3>Загрузка и очистка данных</h3>
+                <p>Поддержка Excel, CSV, JSON, XML. Автоматическое преобразование идентификаторов в названия судов.</p>
             </div>
             <div class="card">
-                <h3>💾 Единая база</h3>
-                <p>SQLite для старта, с возможностью перехода на PostgreSQL. История всех инцидентов в одном месте.</p>
+                <span class="icon">🗄️</span>
+                <h3>Единое хранилище</h3>
+                <p>SQLite для локальной работы, PostgreSQL при масштабировании. Все инциденты в одном месте.</p>
             </div>
             <div class="card">
-                <h3>📊 Автономный дашборд</h3>
-                <p>Собственная система визуализации (matplotlib + Tkinter). Не требует браузера и интернета.</p>
+                <span class="icon">📊</span>
+                <h3>Автономный дашборд</h3>
+                <p>Собственная система визуализации. Не требует браузера и интернета.</p>
             </div>
             <div class="card">
-                <h3>🔒 On‑premise / Desktop</h3>
-                <p>Работает как сервер в вашей сети или как .exe файл на компьютере. Данные под вашим контролем.</p>
+                <span class="icon">🔒</span>
+                <h3>On‑premise / Desktop</h3>
+                <p>Работает на любом ПК с Windows. Данные не покидают контур организации.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Демо дашборда v.4 -->
-    <div class="section">
-        <h2 class="section-title">Как это выглядит (v.4)</h2>
-        <div class="screenshot">
-            <img src="screenshot_v4.png" alt="Дашборд Marine Safety Monitor v.4" style="max-width:100%; border-radius:8px;" onerror="this.src='https://via.placeholder.com/800x450?text=Marine+Safety+Monitor+v.4'">
-            <div class="screenshot-caption">Автономное desktop-приложение. Выбор владельца и судна, график динамики, таблица инцидентов.</div>
+    <!-- 5 МОДУЛЕЙ -->
+    <section class="section">
+        <h2 class="section-title">Модульная архитектура</h2>
+        <p class="section-subtitle">Пять независимых модулей для полного цикла управления безопасностью</p>
+        <div class="modules-grid">
+            <div class="module-item">
+                <span class="icon">📊</span>
+                <h4>Дашборд</h4>
+                <p>Графики, таблицы, фильтры</p>
+            </div>
+            <div class="module-item">
+                <span class="icon">📁</span>
+                <h4>Загрузка данных</h4>
+                <p>Excel, CSV, JSON, XML</p>
+            </div>
+            <div class="module-item" style="border-left: 3px solid #2dd4bf;">
+                <span class="icon">📱</span>
+                <h4>Мобильный инспектор</h4>
+                <p>Фиксация на борту</p>
+                <span class="badge">УНИКАЛЬНЫЙ</span>
+            </div>
+            <div class="module-item" style="border-left: 3px solid #f59e0b;">
+                <span class="icon">💰</span>
+                <h4>Экономика рейса</h4>
+                <p>Оптимизация расхода топлива</p>
+                <span class="badge badge-orange">УНИКАЛЬНЫЙ</span>
+            </div>
+            <div class="module-item" style="border-left: 3px solid #ef4444;">
+                <span class="icon">🔮</span>
+                <h4>Прогноз инцидентов</h4>
+                <p>Индикатор риска</p>
+                <span class="badge badge-red">УНИКАЛЬНЫЙ</span>
+            </div>
         </div>
-        <div class="screenshot">
-            <img src="dashboard_filter.png" alt="Фильтрация по судну" style="max-width:100%; border-radius:8px;" onerror="this.style.display='none'">
-            <div class="screenshot-caption">Фильтрация по судну — все графики перестраиваются мгновенно.</div>
-        </div>
-    </div>
+    </section>
 
-    <!-- Перспективные модули -->
-    <div class="section">
-        <h2 class="section-title">Перспективные модули</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>📱 Мобильный инспектор</h3>
-                <p>Приложение для планшета, позволяющее инспектору на борту фиксировать нарушения (фото, подпись, чек‑лист) и мгновенно отправлять в центральную базу.</p>
+    <!-- ДЕМО — ОБЪЕДИНЁННЫЙ БЛОК -->
+    <section class="section">
+        <h2 class="section-title">Интерфейс системы</h2>
+        <div class="screenshots-block">
+            <img class="main-img" src="screenshot_v5_combined.png" alt="Marine Safety Monitor v.5 — главное окно и дашборд" onerror="this.src='https://via.placeholder.com/1100x520/1a2f44/ffffff?text=Marine+Safety+Monitor+v.5+%E2%80%94+%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B5+%D0%BE%D0%BA%D0%BD%D0%BE+%D0%B8+%D0%B4%D0%B0%D1%88%D0%B1%D0%BE%D1%80%D0%B4'">
+
+            <div class="caption">
+                <strong>Главное окно с боковым меню</strong> — все 5 модулей в одном интерфейсе.<br>
+                <strong>Дашборд</strong> — динамика инцидентов, распределение по типам и важности, топ-10 судов.
             </div>
-            <div class="card">
-                <h3>📈 Предиктивная аналитика</h3>
-                <p>На основе накопленных данных система подсвечивает суда и экипажи с повышенной вероятностью инцидента.</p>
+
+            <div class="screenshots-grid">
+                <div class="mini-img">
+                    <img src="screenshot_v5_table.png" alt="Таблица инцидентов" onerror="this.src='https://via.placeholder.com/300x120/ffffff/4a5a6e?text=Список+инцидентов'">
+                </div>
+                <div class="mini-img">
+                    <img src="screenshot_v5_forecast.png" alt="Прогноз инцидентов" onerror="this.src='https://via.placeholder.com/300x120/ffffff/4a5a6e?text=Прогноз+инцидентов'">
+                </div>
             </div>
-            <div class="card">
-                <h3>⚙️ Экономический калькулятор рейсов</h3>
-                <p>Рассчитывает оптимальную скорость для рейса. Экономия топлива — до 10–15%.</p>
-            </div>
-            <div class="card">
-                <h3>🏛️ Интеграция с госсистемами</h3>
-                <p>Автоматическая выгрузка отчётности в форматах XML, PDF, Excel для Минтранса и Ространснадзора.</p>
+            <div class="caption" style="margin-top:8px; font-size:0.85rem;">
+                Список инцидентов с фильтрацией · Прогноз рисков на основе линейной регрессии
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Результаты -->
-    <div class="section">
-        <h2 class="section-title">Что вы получаете</h2>
+    <!-- ПОЧЕМУ ВЫБИРАЮТ НАС — ВМЕСТО АРХИТЕКТУРЫ -->
+    <section class="section">
+        <h2 class="section-title">Почему выбирают нас</h2>
+        <p class="section-subtitle">Мы решаем реальные задачи, а не создаём иллюзию контроля</p>
+        <div class="why-grid">
+            <div class="why-item">
+                <span class="icon">⚡</span>
+                <h4>Автономность</h4>
+                <p>Система работает без интернета, браузера и облачных сервисов. Только ваш ПК и ваши данные.</p>
+            </div>
+            <div class="why-item">
+                <span class="icon">🔐</span>
+                <h4>Данные под контролем</h4>
+                <p>On‑premise развертывание. Информация не покидает контур организации.</p>
+            </div>
+            <div class="why-item">
+                <span class="icon">🎯</span>
+                <h4>Опыт разработчика</h4>
+                <p>15 лет на подводном флоте, флагманский штурман. Мы знаем, что нужно штурману и его начальнику.</p>
+            </div>
+            <div class="why-item">
+                <span class="icon">📈</span>
+                <h4>Готовность к росту</h4>
+                <p>Модульная архитектура. Масштабирование от 1 судна до всего флота без перестройки системы.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- РЕЗУЛЬТАТЫ -->
+    <section class="section">
+        <h2 class="section-title">Ключевые результаты</h2>
         <div class="stats">
             <div class="stat">
                 <div class="stat-number">15 мин</div>
                 <div class="stat-label">отчёт о безопасности вместо 2 дней</div>
             </div>
             <div class="stat">
-                <div class="stat-number">80–90%</div>
-                <div class="stat-label">снижение ручного труда</div>
+                <div class="stat-number">✔️</div>
+                <div class="stat-label">выявление проблемных судов и экипажей</div>
             </div>
             <div class="stat">
                 <div class="stat-number">1–5</div>
                 <div class="stat-label">шкала важности инцидентов</div>
             </div>
+            <div class="stat">
+                <div class="stat-number">🔮</div>
+                <div class="stat-label">прогнозирование рисков</div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Патент -->
-    <div class="section">
-        <h2 class="section-title">Статус и безопасность</h2>
+    <!-- СРАВНЕНИЕ -->
+    <section class="section">
+        <h2 class="section-title">Сравнение подходов</h2>
+        <div class="grid grid-2col">
+            <div class="card" style="border-left: 4px solid #2dd4bf;">
+                <h3>Marine Safety Monitor v.5</h3>
+                <ul class="check-list">
+                    <li><span class="green">✓</span> внедрение — 1 день</li>
+                    <li><span class="green">✓</span> обучение — 1 час</li>
+                    <li><span class="green">✓</span> работает без интернета</li>
+                    <li><span class="green">✓</span> не требует IT-специалистов</li>
+                    <li><span class="green">✓</span> создан практиком с 15-летним опытом</li>
+                </ul>
+            </div>
+            <div class="card" style="border-left: 4px solid #8a9aa8;">
+                <h3>Крупные SIEM-системы</h3>
+                <ul class="check-list">
+                    <li><span class="muted">—</span> внедрение — 3–6 месяцев</li>
+                    <li><span class="muted">—</span> обучение — 2–3 недели</li>
+                    <li><span class="muted">—</span> требуется интернет</li>
+                    <li><span class="muted">—</span> требует IT-администраторов</li>
+                    <li><span class="muted">—</span> создан IT-командой без морского опыта</li>
+                </ul>
+            </div>
+        </div>
+        <p style="text-align:center; margin-top:28px; color:#4a5a6e; font-size:0.95rem;">
+            Мы не заменяем существующую инфраструктуру. Мы даём инструмент, который <strong>дополняет</strong> её и работает там, где другие системы бессильны.
+        </p>
+    </section>
+
+    <!-- ПЕРСПЕКТИВНЫЕ МОДУЛИ (вместо Архитектуры и Дорожной карты) -->
+    <section class="section">
+        <h2 class="section-title">Перспективные модули</h2>
+        <p class="section-subtitle">Разработаем дополнительные модули под задачи вашего флота</p>
+
+        <!-- Первая строка: 4 модуля -->
+        <div class="perspective-grid">
+            <div class="perspective-card" style="border-left: 3px solid #2dd4bf;">
+                <span class="icon">📋</span>
+                <h4>Цифровой паспорт судна</h4>
+                <p>История всех инцидентов, ремонтов, проверок. Полная прозрачность для владельцев и страховых компаний.</p>
+                <span class="badge">ПО ЗАПРОСУ</span>
+            </div>
+            <div class="perspective-card" style="border-left: 3px solid #3b82f6;">
+                <span class="icon">🗺️</span>
+                <h4>Карта инцидентов</h4>
+                <p>Визуализация происшествий на карте. Выявление опасных районов и маршрутов.</p>
+                <span class="badge badge-blue">ПО ЗАПРОСУ</span>
+            </div>
+            <div class="perspective-card" style="border-left: 3px solid #f59e0b;">
+                <span class="icon">📊</span>
+                <h4>Рейтинг судов и экипажей</h4>
+                <p>Автоматический рейтинг на основе истории инцидентов и нарушений.</p>
+                <span class="badge badge-orange">ПО ЗАПРОСУ</span>
+            </div>
+            <div class="perspective-card" style="border-left: 3px solid #ef4444;">
+                <span class="icon">💰</span>
+                <h4>Финансовый калькулятор инцидентов</h4>
+                <p>Расчёт стоимости каждого происшествия: ремонт, простой, штрафы, страховые выплаты.</p>
+                <span class="badge badge-red">ПО ЗАПРОСУ</span>
+            </div>
+        </div>
+
+        <!-- Вторая строка: 3 модуля -->
+        <div style="margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+            <div class="perspective-card" style="border-left: 3px solid #8b5cf6;">
+                <span class="icon">🔗</span>
+                <h4>Интеграция с АИС и ГМССБ</h4>
+                <p>Автоматическая подгрузка данных о движении судов, погоде и маршрутах. Исключение ручного ввода.</p>
+                <span class="badge badge-purple">ПО ЗАПРОСУ</span>
+            </div>
+            <div class="perspective-card" style="border-left: 3px solid #ec4899;">
+                <span class="icon">📱</span>
+                <h4>Мобильный дашборд для руководства</h4>
+                <p>Ключевые метрики по флоту на смартфоне или планшете. Быстрый доступ вне офиса.</p>
+                <span class="badge badge-pink">ПО ЗАПРОСУ</span>
+            </div>
+            <div class="perspective-card" style="border-left: 3px solid #14b8a6;">
+                <span class="icon">📋</span>
+                <h4>Электронный журнал безопасности</h4>
+                <p>Взамен бумажного журнала — всё в цифре: подписи, фото, геометки, история изменений.</p>
+                <span class="badge badge-teal">ПО ЗАПРОСУ</span>
+            </div>
+        </div>
+
+        <!-- Текст внизу -->
+        <div style="text-align:center; margin-top: 32px; padding: 24px; background: #e8edf4; border-radius: 10px;">
+            <p style="font-size: 1.05rem; color: #0a192f; font-weight: 500;">
+                📌 <strong>Разработаем любые дополнительные модули под задачи вашего флота</strong>
+            </p>
+            <p style="color: #4a5a6e; margin-top: 6px;">
+                Система спроектирована по модульному принципу — новые блоки подключаются без перестройки ядра.
+            </p>
+            <p style="margin-top: 14px;">
+                <a href="#contacts" style="color: #0a192f; font-weight: 600; text-decoration: none; border-bottom: 2px solid #2dd4bf; padding-bottom: 2px;">
+                    Свяжитесь с нами, чтобы обсудить ваш модуль →
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <!-- СТАТУС -->
+    <section class="section">
+        <h2 class="section-title">Статус проекта</h2>
         <div class="grid">
             <div class="card">
-                <h3>📜 Патент</h3>
-                <p>Подана заявка на регистрацию программы для ЭВМ в Роспатенте (№ 2026600310).</p>
+                <span class="icon">📜</span>
+                <h3>Патент</h3>
+                <p>Заявка на регистрацию программы для ЭВМ в Роспатенте<br><strong>№ 2026600310</strong></p>
             </div>
             <div class="card">
-                <h3>🔐 Полный контроль данных</h3>
-                <p>Развёртывание на вашей инфраструктуре или как .exe. Данные не покидают ваш контур.</p>
+                <span class="icon">🔐</span>
+                <h3>Контроль данных</h3>
+                <p>Развёртывание на инфраструктуре заказчика. Данные не покидают контур.</p>
+            </div>
+            <div class="card">
+                <span class="icon">⚡</span>
+                <h3>Автономность</h3>
+                <p>Не требует интернета, браузера, облачных сервисов. Работает на ПК с Windows.</p>
+            </div>
+            <div class="card">
+                <span class="icon">🔄</span>
+                <h3>Модульность</h3>
+                <p>Каждый модуль независим. Внедрение поэтапное, доработка без перестройки.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Пилот -->
-    <div class="cta">
-        <h3>Бесплатный пилотный проект</h3>
-        <p>Вы предоставляете один файл с данными (Excel/CSV) — за 2–3 дня вы получаете работающий дашборд. Никаких обязательств, данные не покидают ваш контур.</p>
-        <a href="mailto:shepet007@mail.ru" class="cta-button">Заказать пилот</a>
-    </div>
+    <!-- CTA -->
+    <section class="cta">
+        <h3>Пилотный проект</h3>
+        <p>Устанавливаем систему на ваш ПК, настраиваем загрузчик под ваши форматы, обучаем сотрудников за 1 час. Через 2 недели вы получаете готовый инструмент управления безопасностью флота.</p>
+        <div class="price">150 000 ₽ — стоимость пилота</div>
+        <p style="font-size:0.9rem; opacity:0.8;">Включает установку, настройку, обучение и отчёт с рекомендациями.<br>При заключении контракта сумма засчитывается как первый платёж.</p>
+        <a href="mailto:shepet007@mail.ru" class="cta-button">Обсудить пилот</a>
+        <a href="#contacts" class="cta-button cta-button-outline">Связаться</a>
+    </section>
 
-    <!-- Контакты -->
-    <div class="contacts">
-        <p><strong>Александр Щепетильников</strong><br>
-        📞 Тел.: <a href="tel:+79146797013">+7 (914) 679-70-13</a><br>
-        📧 Email: <a href="mailto:shepet007@mail.ru">shepet007@mail.ru</a></p>
-    </div>
+    <!-- КОНТАКТЫ -->
+    <section class="section" id="contacts">
+        <h2 class="section-title">Разработчик</h2>
+        <div style="text-align:center; max-width:600px; margin:0 auto;">
+            <p style="font-size:1.1rem; font-weight:600; color:#0a192f;">Щепетильников Александр Владимирович</p>
+            <p style="color:#4a5a6e;">Бывший подводник, флагманский штурман бригады подводных лодок.<br>15 лет на флоте. Выпускник МФТИ по специальности «Дата-инженер».</p>
+            <div class="contacts">
+                <p>📞 <a href="tel:+79146797013">+7 (914) 679-70-13</a></p>
+                <p>✉️ <a href="mailto:shepet007@mail.ru">shepet007@mail.ru</a></p>
+                <p>🌐 <a href="https://www.plushandko.ru">www.plushandko.ru</a></p>
+            </div>
+        </div>
+    </section>
+
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
-    <p>© 2026 Plush&Ko Marine Safety Monitor. Все права защищены.</p>
+    <p>© 2026 Plush&Ko Marine Safety Monitor v.5</p>
+    <p style="font-size:0.75rem; opacity:0.6; margin-top:4px;">ИП Щепетильников А.В. · ИНН 254002476537 · ОГРНИП 326774600433115</p>
 </div>
 
 </body>

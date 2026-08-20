@@ -678,11 +678,11 @@
                     Продукты <span class="arrow">▼</span>
                 </button>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="#" data-page="fleet">Marine Safety Monitor</a>
-                    <a href="#" data-page="energy">Energy Analytics Platform</a>
+                    <a href="#fleet" data-page="fleet">Marine Safety Monitor</a>
+                    <a href="#energy" data-page="energy">Energy Analytics Platform</a>
                 </div>
             </div>
-            <a href="#" data-page="docs">Документация</a>
+            <a href="#docs" data-page="docs">Документация</a>
             <a href="#" data-nav="about">О разработчике</a>
             <a href="#" data-nav="contact">Контакты</a>
             <a href="#contact" class="btn btn-primary btn-sm" data-nav="contact">Обсудить пилот</a>
@@ -703,8 +703,8 @@
                     для флота и энергетики. Работает без интернета. Внедряется за 1 день.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#" data-page="fleet" class="btn btn-primary">Для флота</a>
-                    <a href="#" data-page="energy" class="btn btn-outline">Для энергетики</a>
+                    <a href="#fleet" data-page="fleet" class="btn btn-primary">Для флота</a>
+                    <a href="#energy" data-page="energy" class="btn btn-outline">Для энергетики</a>
                 </div>
             </div>
         </section>
@@ -722,7 +722,7 @@
                 </div>
 
                 <div class="product-grid">
-                    <a href="#" data-page="fleet" class="product-card">
+                    <a href="#fleet" data-page="fleet" class="product-card">
                         <span class="tag">5 модулей</span>
                         <h3>Marine Safety Monitor</h3>
                         <p>
@@ -739,7 +739,7 @@
                         <span class="arrow-link">Подробнее →</span>
                     </a>
 
-                    <a href="#" data-page="energy" class="product-card">
+                    <a href="#energy" data-page="energy" class="product-card">
                         <span class="tag">14 модулей</span>
                         <h3>Energy Analytics Platform</h3>
                         <p>
@@ -983,11 +983,11 @@
         </section>
     </div>
 
-    <!-- ===== ДОКУМЕНТАЦИЯ (п. 4 «ж» Правил реестра российского ПО) ===== -->
+    <!-- ===== ДОКУМЕНТАЦИЯ (п. 4 «ж») ===== -->
     <div id="page-docs" class="product-page">
         <section class="section">
             <div class="container">
-                <a href="#" class="back-link" data-page="home">← На главную</a>
+                <a href="#home" class="back-link" data-page="home">← На главную</a>
                 <div class="product-page-header">
                     <span class="section-label">Документация</span>
                     <h1>Документация на программное обеспечение</h1>
@@ -1112,8 +1112,8 @@
                     <div class="info-card">
                         <h4>Актуальность</h4>
                         <p>Документация соответствует текущей поставке ПО.
-                        При изменении функций или порядка запуска страница обновляется
-                        на www.plushandko.ru (раздел «Документация»).</p>
+                        При изменении функций или порядка запуска страница обновляется.
+                        Прямая ссылка: <a href="https://www.plushandko.ru/#docs" style="color:#2dd4bf;">www.plushandko.ru/#docs</a></p>
                     </div>
                 </div>
 
@@ -1131,9 +1131,9 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-links">
-            <a href="#" data-page="fleet">Marine Safety Monitor</a>
-            <a href="#" data-page="energy">Energy Analytics Platform</a>
-            <a href="#" data-page="docs">Документация</a>
+            <a href="#fleet" data-page="fleet">Marine Safety Monitor</a>
+            <a href="#energy" data-page="energy">Energy Analytics Platform</a>
+            <a href="#docs" data-page="docs">Документация</a>
             <a href="#" data-nav="about">О разработчике</a>
             <a href="#" data-nav="contact">Контакты</a>
         </div>
@@ -1157,12 +1157,18 @@
     const mobileToggle = document.getElementById('mobileToggle');
     const navLinks = document.getElementById('navLinks');
 
-    function showPage(pageId) {
+    function showPage(pageId, updateHash) {
+        if (typeof updateHash === 'undefined') updateHash = true;
+
         homePage.style.display = 'none';
-        fleetPage.classList.remove('active');
-        fleetPage.style.display = 'none';
-        energyPage.classList.remove('active');
-        energyPage.style.display = 'none';
+        if (fleetPage) {
+            fleetPage.classList.remove('active');
+            fleetPage.style.display = 'none';
+        }
+        if (energyPage) {
+            energyPage.classList.remove('active');
+            energyPage.style.display = 'none';
+        }
         if (docsPage) {
             docsPage.classList.remove('active');
             docsPage.style.display = 'none';
@@ -1170,40 +1176,54 @@
 
         if (pageId === 'home') {
             homePage.style.display = 'block';
-        } else if (pageId === 'fleet') {
+            if (updateHash) {
+                if (history.replaceState) {
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                } else {
+                    window.location.hash = '';
+                }
+            }
+        } else if (pageId === 'fleet' && fleetPage) {
             fleetPage.style.display = 'block';
-            setTimeout(() => fleetPage.classList.add('active'), 10);
-        } else if (pageId === 'energy') {
+            setTimeout(function() { fleetPage.classList.add('active'); }, 10);
+            if (updateHash) window.location.hash = 'fleet';
+        } else if (pageId === 'energy' && energyPage) {
             energyPage.style.display = 'block';
-            setTimeout(() => energyPage.classList.add('active'), 10);
+            setTimeout(function() { energyPage.classList.add('active'); }, 10);
+            if (updateHash) window.location.hash = 'energy';
         } else if (pageId === 'docs' && docsPage) {
             docsPage.style.display = 'block';
-            setTimeout(() => docsPage.classList.add('active'), 10);
+            setTimeout(function() { docsPage.classList.add('active'); }, 10);
+            if (updateHash) window.location.hash = 'docs';
         }
 
-        navLinks.classList.remove('mobile-open');
+        if (navLinks) navLinks.classList.remove('mobile-open');
         if (mobileToggle) mobileToggle.textContent = '☰';
-        dropdownMenu.classList.remove('show');
-        dropdownToggle.classList.remove('active');
+        if (dropdownMenu) dropdownMenu.classList.remove('show');
+        if (dropdownToggle) dropdownToggle.classList.remove('active');
         window.scrollTo(0, 0);
     }
 
+    function pageFromHash() {
+        var h = (window.location.hash || '').replace(/^#/, '').toLowerCase();
+        if (h === 'fleet' || h === 'energy' || h === 'docs') return h;
+        return 'home';
+    }
+
     function goToSection(sectionId) {
-        showPage('home');
+        showPage('home', true);
         setTimeout(function() {
-            const target = document.getElementById(sectionId);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            var target = document.getElementById(sectionId);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 80);
     }
 
     document.querySelectorAll('[data-page]').forEach(function(el) {
         el.addEventListener('click', function(e) {
             e.preventDefault();
-            const page = this.getAttribute('data-page');
+            var page = this.getAttribute('data-page');
             if (page === 'home' || page === 'fleet' || page === 'energy' || page === 'docs') {
-                showPage(page);
+                showPage(page, true);
             }
         });
     });
@@ -1211,38 +1231,48 @@
     document.querySelectorAll('[data-nav]').forEach(function(el) {
         el.addEventListener('click', function(e) {
             e.preventDefault();
-            const target = this.getAttribute('data-nav');
-            if (target === 'about' || target === 'contact') {
-                goToSection(target);
-            }
+            var target = this.getAttribute('data-nav');
+            if (target === 'about' || target === 'contact') goToSection(target);
         });
     });
 
-    document.getElementById('logoLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        showPage('home');
-    });
+    var logoLink = document.getElementById('logoLink');
+    if (logoLink) {
+        logoLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('home', true);
+        });
+    }
 
-    dropdownToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-        dropdownToggle.classList.toggle('active');
-    });
+    if (dropdownToggle) {
+        dropdownToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+            dropdownToggle.classList.toggle('active');
+        });
+    }
 
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown')) {
+        if (dropdownMenu && !e.target.closest('.dropdown')) {
             dropdownMenu.classList.remove('show');
-            dropdownToggle.classList.remove('active');
+            if (dropdownToggle) dropdownToggle.classList.remove('active');
         }
     });
 
-    mobileToggle.addEventListener('click', function() {
-        navLinks.classList.toggle('mobile-open');
-        mobileToggle.textContent = navLinks.classList.contains('mobile-open') ? '✕' : '☰';
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-open');
+            mobileToggle.textContent = navLinks.classList.contains('mobile-open') ? '✕' : '☰';
+        });
+    }
+
+    window.addEventListener('hashchange', function() {
+        showPage(pageFromHash(), false);
     });
 
-    showPage('home');
+    showPage(pageFromHash(), false);
 })();
 </script>
+
 </body>
 </html>

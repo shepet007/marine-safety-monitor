@@ -3,1276 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plush&Ko Analytics — Платформа управления инцидентами и рисками</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Plush&amp;Ko Analytics — Платформа управления инцидентами и рисками</title>
+    <meta name="description" content="On-premise система учёта инцидентов, аналитики и прогноза рисков для флота и энергетики. Работает без интернета.">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #070f1a;
-            color: #e2e8f0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: #0a1628;
+            color: #fff;
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
         }
-
-        .container {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 0 24px;
+        a { color: inherit; text-decoration: none; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        header {
+            position: sticky; top: 0; z-index: 20;
+            background: rgba(10,22,40,.92);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            backdrop-filter: blur(8px);
         }
-
-        h1, h2, h3, h4 {
-            font-weight: 600;
-            letter-spacing: -0.025em;
-            color: #f8fafc;
+        .nav {
+            display: flex; align-items: center; justify-content: space-between;
+            min-height: 68px; gap: 16px;
         }
-
-        h1 { font-size: 3.4rem; line-height: 1.12; }
-        h2 { font-size: 2.35rem; line-height: 1.25; margin-bottom: 16px; }
-        h3 { font-size: 1.4rem; margin-bottom: 10px; }
-
-        .text-muted { color: #94a3b8; }
-        .text-accent { color: #2dd4bf; }
-        .text-center { text-align: center; }
-
-        /* ===== BUTTONS ===== */
+        .logo { font-weight: 700; letter-spacing: .02em; }
+        .logo span { color: #5aa7ff; }
+        .nav-links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; color: #c9d6e8; }
+        .nav-links a:hover { color: #fff; }
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 32px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: #2dd4bf;
-            color: #070f1a;
-        }
-
-        .btn-primary:hover {
-            background: #14b8a6;
-            transform: translateY(-1px);
-            box-shadow: 0 10px 25px rgba(45, 212, 191, 0.25);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #f8fafc;
-            border: 1.5px solid rgba(45, 212, 191, 0.5);
-        }
-
-        .btn-outline:hover {
-            background: rgba(45, 212, 191, 0.1);
-            border-color: #2dd4bf;
-        }
-
-        .btn-sm {
-            padding: 10px 22px;
-            font-size: 0.875rem;
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            padding: 18px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            position: sticky;
-            top: 0;
-            background: rgba(7, 15, 26, 0.92);
-            backdrop-filter: blur(16px);
-            z-index: 100;
-        }
-
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #f8fafc;
-            text-decoration: none;
-            letter-spacing: -0.03em;
-        }
-
-        .logo span { color: #2dd4bf; }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.925rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover { color: #2dd4bf; }
-
-        .dropdown { position: relative; }
-
-        .dropdown-toggle {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #94a3b8;
-            background: none;
-            border: none;
-            font-family: inherit;
-            font-size: 0.925rem;
-            font-weight: 500;
-            padding: 0;
-        }
-
-        .dropdown-toggle:hover { color: #2dd4bf; }
-
-        .dropdown-toggle .arrow {
-            font-size: 0.55rem;
-            transition: transform 0.25s ease;
-        }
-
-        .dropdown-toggle.active .arrow { transform: rotate(180deg); }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #0f1c2e;
-            border-radius: 10px;
-            padding: 8px 0;
-            min-width: 240px;
-            border: 1px solid #1e293b;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            margin-top: 12px;
-        }
-
-        .dropdown-menu.show { display: block; }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 11px 22px;
-            color: #94a3b8;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .dropdown-menu a:hover {
-            background: rgba(45, 212, 191, 0.08);
-            color: #2dd4bf;
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            position: relative;
-            padding: 110px 0 100px;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                linear-gradient(135deg, rgba(7, 15, 26, 0.88) 0%, rgba(7, 15, 26, 0.72) 50%, rgba(7, 15, 26, 0.85) 100%),
-                url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            z-index: 0;
-        }
-
-        /* Альтернативный более «индустриальный» фон (можно заменить) */
-        /* background: linear-gradient(...), url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1920&q=80'); */
-
-        .hero .container {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-
-        .hero .badge {
-            display: inline-block;
-            background: rgba(45, 212, 191, 0.12);
-            color: #2dd4bf;
-            padding: 7px 18px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            margin-bottom: 28px;
-            border: 1px solid rgba(45, 212, 191, 0.2);
-        }
-
-        .hero h1 {
-            max-width: 860px;
-            margin: 0 auto 24px;
-        }
-
-        .hero .subtitle {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            max-width: 620px;
-            margin: 0 auto 40px;
-            font-weight: 400;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* ===== SECTIONS ===== */
-        .section {
-            padding: 88px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .section:last-of-type { border-bottom: none; }
-
-        .section-label {
-            display: inline-block;
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 1.8px;
-            text-transform: uppercase;
-            color: #2dd4bf;
-            margin-bottom: 14px;
-        }
-
-        /* ===== PRODUCT CARDS ===== */
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 28px;
-            margin-top: 48px;
-        }
-
-        .product-card {
-            background: #0f1c2e;
-            border-radius: 14px;
-            padding: 36px 32px;
-            border: 1px solid #1e293b;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: #2dd4bf;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            border-color: #2dd4bf;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-        }
-
-        .product-card:hover::before { opacity: 1; }
-
-        .product-card .tag {
-            display: inline-block;
-            background: rgba(45, 212, 191, 0.1);
-            color: #2dd4bf;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            padding: 4px 12px;
-            border-radius: 4px;
-            margin-bottom: 18px;
-        }
-
-        .product-card h3 {
-            font-size: 1.45rem;
-            margin-bottom: 12px;
-        }
-
-        .product-card p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-            line-height: 1.55;
-        }
-
-        .product-card .modules {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 28px;
-        }
-
-        .product-card .modules span {
-            background: #070f1a;
-            color: #94a3b8;
-            font-size: 0.78rem;
-            padding: 5px 12px;
-            border-radius: 5px;
-            border: 1px solid #1e293b;
-        }
-
-        .product-card .arrow-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #2dd4bf;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .product-card .arrow-link:hover { text-decoration: underline; }
-
-        /* ===== FEATURES ===== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 48px;
-        }
-
-        .feature-item {
-            background: #0f1c2e;
-            border-radius: 12px;
-            padding: 28px 24px;
-            border: 1px solid #1e293b;
-            transition: border-color 0.25s ease;
-        }
-
-        .feature-item:hover { border-color: rgba(45, 212, 191, 0.4); }
-
-        .feature-item h4 {
-            font-size: 1.05rem;
-            margin-bottom: 10px;
-            color: #f1f5f9;
-        }
-
-        .feature-item p {
-            color: #94a3b8;
-            font-size: 0.92rem;
-            line-height: 1.55;
-        }
-
-        /* ===== PRODUCT PAGES ===== */
-        .product-page {
-            display: none;
-            animation: fadeIn 0.35s ease;
-        }
-
-        .product-page.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .product-page .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 36px;
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .product-page .back-link:hover { color: #2dd4bf; }
-
-        .product-page-header {
-            margin-bottom: 48px;
-            max-width: 720px;
-        }
-
-        .product-page-header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 16px;
-        }
-
-        .modules-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .modules-list .module-item {
-            background: #0f1c2e;
-            border: 1px solid #1e293b;
-            border-radius: 8px;
-            padding: 14px 18px;
-            color: #cbd5e1;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .modules-list .module-item::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: #2dd4bf;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .info-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-top: 48px;
-        }
-
-        .info-card {
-            background: #0f1c2e;
-            border-radius: 12px;
-            padding: 28px;
-            border: 1px solid #1e293b;
-        }
-
-        .info-card h4 {
-            font-size: 1.05rem;
-            margin-bottom: 10px;
-        }
-
-        .info-card p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
-        /* ===== ABOUT ===== */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 56px;
-            align-items: start;
-            margin-top: 32px;
-        }
-
-        .badge-list {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .badge-list li {
-            padding: 11px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
-        .badge-list li strong { color: #f1f5f9; }
-
-        .badge-list .check {
-            color: #2dd4bf;
-            font-weight: 700;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .quote {
-            margin-top: 28px;
-            padding: 20px 24px;
-            background: #0f1c2e;
-            border-left: 3px solid #2dd4bf;
-            border-radius: 0 10px 10px 0;
-            color: #94a3b8;
-            font-style: italic;
-            font-size: 0.98rem;
-            line-height: 1.6;
-        }
-
-        .status-card {
-            background: #0f1c2e;
-            border-radius: 14px;
-            padding: 32px;
-            border: 1px solid #1e293b;
-        }
-
-        .status-card h4 {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        /* ===== CONTACT ===== */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 56px;
-            margin-top: 40px;
-        }
-
-        .contact-info p {
-            color: #94a3b8;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .contact-info a {
-            color: #2dd4bf;
-            text-decoration: none;
-        }
-
-        .contact-info a:hover { text-decoration: underline; }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 8px;
-            border: 1px solid #1e293b;
-            background: #0f1c2e;
-            color: #f8fafc;
-            font-size: 0.95rem;
-            margin-bottom: 14px;
-            transition: border-color 0.2s ease;
-            font-family: inherit;
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: #2dd4bf;
-        }
-
-        .contact-form textarea {
-            min-height: 130px;
-            resize: vertical;
-        }
-
-        .contact-form .btn { width: 100%; }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            padding: 48px 0 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            color: #64748b;
-            font-size: 0.875rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 36px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover { color: #2dd4bf; }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            h1 { font-size: 2.8rem; }
-            h2 { font-size: 2rem; }
-            .product-grid { gap: 20px; }
-            .about-grid { gap: 40px; }
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.7rem; }
-            .hero { padding: 70px 0 60px; }
-            .product-grid,
-            .features-grid,
-            .about-grid,
-            .contact-grid,
-            .info-cards {
-                grid-template-columns: 1fr;
-            }
+            display: inline-block; background: #1e6fd9; color: #fff;
+            padding: 10px 16px; border-radius: 6px; font-size: 14px; border: 0; cursor: pointer;
+        }
+        .btn.ghost { background: transparent; border: 1px solid rgba(255,255,255,.2); }
+        .page { display: none; padding: 48px 0 80px; }
+        .page.active { display: block; }
+        h1 { font-size: 42px; line-height: 1.15; margin-bottom: 16px; }
+        h2 { font-size: 28px; margin-bottom: 12px; }
+        h3 { font-size: 20px; margin: 22px 0 10px; }
+        .lead { color: #9fb0c7; max-width: 720px; font-size: 18px; }
+        .hero { padding: 56px 0 24px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 28px; }
+        .card {
+            background: #12233b; border: 1px solid rgba(255,255,255,.08);
+            border-radius: 12px; padding: 22px;
+        }
+        .muted { color: #9fb0c7; }
+        .price-box {
+            background: #163152; border: 1px solid #2b6cb0;
+            border-radius: 10px; padding: 18px; margin: 16px 0 24px;
+        }
+        .price-box table { width: 100%; border-collapse: collapse; font-size: 15px; }
+        .price-box td { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.08); vertical-align: top; }
+        .price-box td:last-child { text-align: right; white-space: nowrap; font-weight: 600; }
+        ul { padding-left: 18px; }
+        li { margin: 6px 0; }
+        footer { border-top: 1px solid rgba(255,255,255,.08); padding: 28px 0; color: #8ea0b8; font-size: 13px; }
+        @media (max-width: 720px) {
+            h1 { font-size: 30px; }
             .nav-links { display: none; }
-            .nav-links.mobile-open {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: #070f1a;
-                padding: 24px;
-                border-bottom: 1px solid #1e293b;
-                gap: 18px;
-            }
-            .mobile-toggle {
-                display: block;
-                font-size: 1.6rem;
-                cursor: pointer;
-                color: #f8fafc;
-                background: none;
-                border: none;
-            }
-            .dropdown-menu {
-                position: static;
-                transform: none;
-                box-shadow: none;
-                background: transparent;
-                border: none;
-                padding: 0;
-                margin-top: 8px;
-            }
-            .modules-list { grid-template-columns: 1fr; }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-toggle { display: none; }
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 1.85rem; }
-            .container { padding: 0 16px; }
-            .product-card { padding: 28px 22px; }
-            .hero .subtitle { font-size: 1.05rem; }
         }
     </style>
 </head>
 <body>
-
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar">
-    <div class="container">
-        <a href="/" class="logo" id="logoLink">Plush&Ko <span>Analytics</span></a>
-        <div class="nav-links" id="navLinks">
-            <div class="dropdown">
-                <button class="dropdown-toggle" id="dropdownToggle">
-                    Продукты <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="#fleet" data-page="fleet">Marine Safety Monitor</a>
-                    <a href="#energy" data-page="energy">Energy Analytics Platform</a>
-                </div>
-            </div>
-            <a href="#docs" data-page="docs">Документация</a>
-            <a href="#" data-nav="about">О разработчике</a>
-            <a href="#" data-nav="contact">Контакты</a>
-            <a href="#contact" class="btn btn-primary btn-sm" data-nav="contact">Обсудить пилот</a>
-        </div>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Меню">☰</button>
+<header>
+    <div class="container nav">
+        <a class="logo" href="#home">Plush&amp;Ko <span>Analytics</span></a>
+        <nav class="nav-links">
+            <a href="#docs">Документация</a>
+            <a href="#about">О разработчике</a>
+            <a href="#contact">Контакты</a>
+        </nav>
+        <a class="btn" href="#contact">Обсудить пилот</a>
     </div>
-</nav>
+</header>
 
 <main>
-    <!-- ===== ГЛАВНАЯ ===== -->
-    <div id="page-home">
-        <section class="hero">
-            <div class="container">
-                <span class="badge">Платформа управления инцидентами и рисками</span>
-                <h1>Данные есть.<br><span class="text-accent">Картины нет.</span></h1>
-                <p class="subtitle">
-                    Автономная система сбора, визуализации и прогнозирования инцидентов 
-                    для флота и энергетики. Работает без интернета. Внедряется за 1 день.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#fleet" data-page="fleet" class="btn btn-primary">Для флота</a>
-                    <a href="#energy" data-page="energy" class="btn btn-outline">Для энергетики</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ПРОДУКТЫ -->
-        <section class="section" id="products">
-            <div class="container">
-                <div class="text-center">
-                    <span class="section-label">Продукты</span>
-                    <h2>Две отрасли — <span class="text-accent">одно ядро</span></h2>
-                    <p class="text-muted" style="max-width: 580px; margin: 0 auto;">
-                        Мы не продаём «ещё один софт». Мы даём инструмент, 
-                        который реально используют штурманы и инженеры.
-                    </p>
-                </div>
-
-                <div class="product-grid">
-                    <a href="#fleet" data-page="fleet" class="product-card">
-                        <span class="tag">5 модулей</span>
-                        <h3>Marine Safety Monitor</h3>
-                        <p>
-                            Система для судоходных компаний, портов и служб безопасности мореплавания. 
-                            Отчёт о безопасности — за 15 минут вместо двух дней.
-                        </p>
-                        <div class="modules">
-                            <span>Дашборд</span>
-                            <span>Загрузка данных</span>
-                            <span>Инспектор</span>
-                            <span>Экономика рейса</span>
-                            <span>Прогноз рисков</span>
-                        </div>
-                        <span class="arrow-link">Подробнее →</span>
-                    </a>
-
-                    <a href="#energy" data-page="energy" class="product-card">
-                        <span class="tag">14 модулей</span>
-                        <h3>Energy Analytics Platform</h3>
-                        <p>
-                            Платформа для ТЭЦ, ГЭС, подстанций и сетевых организаций. 
-                            Прогнозирование отказов и оптимизация затрат на ТОиР.
-                        </p>
-                        <div class="modules">
-                            <span>Дашборд</span>
-                            <span>Объекты</span>
-                            <span>Инциденты</span>
-                            <span>Оборудование</span>
-                            <span>ТОиР</span>
-                            <span>SCADA</span>
-                            <span>Карта</span>
-                            <span>Прогноз</span>
-                            <span>Экономика</span>
-                        </div>
-                        <span class="arrow-link">Подробнее →</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ПРЕИМУЩЕСТВА -->
-        <section class="section">
-            <div class="container">
-                <div class="text-center">
-                    <span class="section-label">Почему это работает</span>
-                    <h2>Не SIEM за 300 млн.<br><span class="text-accent">А то, что реально нужно</span></h2>
-                </div>
-
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <h4>On-premise + Offline</h4>
-                        <p>Данные не покидают ваш контур. Работает в море, на удалённых объектах и в закрытых сетях.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Внедрение за 1 день</h4>
-                        <p>Не требует IT-команды. Обучение пользователей — около часа. Установка через .exe.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Модульная архитектура</h4>
-                        <p>Одно ядро + отраслевые модули. Легко масштабируется на новые направления.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Прогнозирование рисков</h4>
-                        <p>Индикатор опасности по каждому объекту на основе регрессионного анализа.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Понятный интерфейс</h4>
-                        <p>Создан человеком, который 15 лет ходил в море. Без лишней сложности.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Экономия на ТОиР</h4>
-                        <p>Оптимизация затрат на ремонт и обслуживание за счёт раннего выявления проблем.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- О РАЗРАБОТЧИКЕ -->
-        <section class="section" id="about">
-            <div class="container">
-                <span class="section-label">О разработчике</span>
-                <div class="about-grid">
-                    <div>
-                        <h2>Щепетильников<br><span class="text-accent">Александр Владимирович</span></h2>
-                        <p style="color:#94a3b8; font-size:1.05rem; margin:12px 0 8px;">
-                            15 лет на подводном флоте. Командир штурманской боевой части, 
-                            флагманский штурман бригады. Выпускник МФТИ (дата-инженер, 2025).
-                        </p>
-
-                        <ul class="badge-list">
-                            <li><span class="check">✓</span> <strong>15 лет</strong> на подводном флоте (БЧ-1, флагманский штурман)</li>
-                            <li><span class="check">✓</span> <strong>МФТИ</strong> — специальность «Дата-инженер»</li>
-                            <li><span class="check">✓</span> <strong>Патент</strong> — заявка № 2026600310 (Роспатент)</li>
-                            <li><span class="check">✓</span> <strong>ИП</strong> зарегистрирован 17.06.2026</li>
-                            <li><span class="check">✓</span> Вся система создана лично — от идеи до готового .exe</li>
-                        </ul>
-
-                        <div class="quote">
-                            «Я 15 лет ходил в море и знаю, что нужно штурману и его начальнику. 
-                            Им не нужна SIEM за 300 млн. Им нужен простой и понятный инструмент, 
-                            который работает без интернета и не требует обучения».
-                        </div>
-                    </div>
-
-                    <div class="status-card">
-                        <h4>Статус проекта</h4>
-                        <ul class="badge-list">
-                            <li><span class="check">✓</span> <strong>TRL 5</strong> — протестировано на реальных данных</li>
-                            <li><span class="check">✓</span> <strong>55+</strong> инцидентов в тестовой базе</li>
-                            <li><span class="check">✓</span> <strong>18</strong> энергетических объектов</li>
-                            <li><span class="check">✓</span> Готовый .exe для установки</li>
-                            <li><span class="check">✓</span> Ищем партнёров для пилотных внедрений</li>
-                        </ul>
-                        <div style="margin-top:24px; background:#070f1a; border-radius:8px; padding:16px; border:1px solid #1e293b;">
-                            <p style="font-size:0.85rem; color:#94a3b8; margin:0; line-height:1.5;">
-                                Продукт собран, протестирован и готов к пилотированию 
-                                на реальных объектах флота и энергетики.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- КОНТАКТЫ -->
-        <section class="section" id="contact">
-            <div class="container">
-                <div class="text-center">
-                    <span class="section-label">Контакты</span>
-                    <h2>Готовы обсудить <span class="text-accent">пилот</span></h2>
-                    <p class="text-muted" style="max-width:520px; margin:0 auto;">
-                        Покажем демо, ответим на вопросы и рассчитаем экономический эффект 
-                        для вашей организации.
-                    </p>
-                </div>
-
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h4 style="margin-bottom:18px; font-size:1.15rem;">Связаться напрямую</h4>
-                        <p><strong style="color:#f1f5f9;">Александр Щепетильников</strong></p>
-                        <p style="margin-top:12px;"><a href="tel:+79146797013">+7 (914) 679-70-13</a></p>
-                        <p><a href="mailto:shepet007@mail.ru">shepet007@mail.ru</a></p>
-                        <p><a href="https://www.plushandko.ru" target="_blank">www.plushandko.ru</a></p>
-
-                        <div style="margin-top:32px; background:#0f1c2e; border-radius:12px; padding:22px; border:1px solid #1e293b;">
-                            <p style="font-size:0.88rem; color:#94a3b8; margin:0; line-height:1.6;">
-                                <strong style="color:#f1f5f9;">Юридический статус</strong><br>
-                                ИП Щепетильников А.В.<br>
-                                ИНН 254002476537<br>
-                                ОГРНИП 326774600433115<br>
-                                Заявка на патент № 2026600310
-                            </p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <form class="contact-form" action="mailto:shepet007@mail.ru" method="post" enctype="text/plain">
-                            <input type="text" name="name" placeholder="Ваше имя" required>
-                            <input type="email" name="email" placeholder="Рабочий email" required>
-                            <input type="text" name="company" placeholder="Компания / организация">
-                            <textarea name="message" placeholder="Кратко опишите задачу или интересующее направление" required></textarea>
-                            <button type="submit" class="btn btn-primary">Отправить запрос</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section id="home" class="page active">
+    <div class="container hero">
+        <h1>Данные есть.<br>Картины нет.</h1>
+        <p class="lead">Автономная система сбора, визуализации и прогнозирования инцидентов для флота и энергетики. Работает без интернета. Внедряется за 1 день.</p>
     </div>
-
-    <!-- ===== СТРАНИЦА ФЛОТ ===== -->
-    <div id="page-fleet" class="product-page">
-        <section class="section" style="padding-top:48px;">
-            <div class="container">
-                <a href="#" class="back-link" data-page="home">← На главную</a>
-
-                <div class="product-page-header">
-                    <h1>Marine Safety Monitor</h1>
-                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">
-                        Система сбора, визуализации и прогнозирования инцидентов 
-                        для морского и речного флота. Полностью автономна. Работает без интернета.
-                    </p>
-                </div>
-
-                <h3>Ключевые модули</h3>
-                <div class="modules-list">
-                    <div class="module-item">Дашборд — общая картина по флоту</div>
-                    <div class="module-item">Загрузка данных — Excel, CSV, JSON, XML</div>
-                    <div class="module-item">Мобильный инспектор — фиксация на борту</div>
-                    <div class="module-item">Экономика рейса — оптимизация расхода топлива</div>
-                    <div class="module-item">Прогноз инцидентов — индикатор риска</div>
-                </div>
-
-                <div class="info-cards">
-                    <div class="info-card">
-                        <h4>Для кого</h4>
-                        <p>Судоходные компании, порты, Росморпорт, службы безопасности мореплавания.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>Результат</h4>
-                        <p>Отчёт о безопасности — 15 минут вместо 2 дней. Выявление проблемных судов и экипажей.</p>
-                    </div>
-                </div>
-
-                <div style="margin-top:52px; text-align:center;">
-                    <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для флота</a>
-                </div>
+    <div class="container">
+        <h2>Две отрасли — одно ядро</h2>
+        <div class="grid">
+            <div class="card">
+                <p class="muted">5 модулей</p>
+                <h3>Marine Safety Monitor</h3>
+                <p class="muted">Система для судоходных компаний, портов и служб безопасности мореплавания.</p>
+                <p style="margin-top:14px"><a class="btn ghost" href="#fleet">Подробнее →</a></p>
             </div>
-        </section>
-    </div>
-
-    <!-- ===== СТРАНИЦА ЭНЕРГЕТИКА ===== -->
-    <div id="page-energy" class="product-page">
-        <section class="section" style="padding-top:48px;">
-            <div class="container">
-                <a href="#" class="back-link" data-page="home">← На главную</a>
-
-                <div class="product-page-header">
-                    <h1>Energy Analytics Platform</h1>
-                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">
-                        Платформа сбора, визуализации и прогнозирования инцидентов 
-                        для энергетических объектов. ТЭЦ, ГЭС, подстанции и сети — в одном интерфейсе.
-                    </p>
-                </div>
-
-                <h3>14 модулей для полного управления</h3>
-                <div class="modules-list">
-                    <div class="module-item">Дашборд — общая картина</div>
-                    <div class="module-item">Объекты — реестр энергообъектов</div>
-                    <div class="module-item">Инциденты — журнал происшествий</div>
-                    <div class="module-item">Оборудование — учёт агрегатов</div>
-                    <div class="module-item">ТОиР — журнал ремонтов</div>
-                    <div class="module-item">SCADA — телеметрия с датчиков</div>
-                    <div class="module-item">Паспорт оборудования — полная история</div>
-                    <div class="module-item">Рейтинг объектов</div>
-                    <div class="module-item">Карта — интерактивная карта</div>
-                    <div class="module-item">Финансы — калькулятор ущерба</div>
-                    <div class="module-item">Загрузка — Excel, CSV, JSON, XML</div>
-                    <div class="module-item">Инспектор — фиксация на объекте</div>
-                    <div class="module-item">Прогноз — оценка рисков</div>
-                    <div class="module-item">Экономика ТОиР — оптимизация затрат</div>
-                </div>
-
-                <div class="info-cards">
-                    <div class="info-card">
-                        <h4>Для кого</h4>
-                        <p>ТЭЦ, ГЭС, подстанции, электросетевые организации, городская энергетика.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>Результат</h4>
-                        <p>Прогнозирование отказов. Сокращение простоев. Экономия на ТОиР до 15%.</p>
-                    </div>
-                </div>
-
-                <div style="margin-top:52px; text-align:center;">
-                    <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для энергетики</a>
-                </div>
+            <div class="card">
+                <p class="muted">14 модулей</p>
+                <h3>Energy Analytics Platform</h3>
+                <p class="muted">Платформа для ТЭЦ, ГЭС, подстанций и сетевых организаций.</p>
+                <p style="margin-top:14px"><a class="btn ghost" href="#energy">Подробнее →</a></p>
             </div>
-        </section>
+        </div>
     </div>
+</section>
 
-    <!-- ===== ДОКУМЕНТАЦИЯ (п. 4 «ж») ===== -->
-    <div id="page-docs" class="product-page">
-        <section class="section">
-            <div class="container">
-                <a href="#home" class="back-link" data-page="home">← На главную</a>
-                <div class="product-page-header">
-                    <span class="section-label">Документация</span>
-                    <h1>Документация на программное обеспечение</h1>
-                    <p class="text-muted" style="max-width:720px;">
-                        Описание функциональных характеристик и сведения, необходимые для установки
-                        и эксплуатации программного обеспечения правообладателя
-                        ИП Щепетильникова А.В. (в соответствии с подпунктом «ж» пункта 4 Правил,
-                        утв. постановлением Правительства РФ от 16.11.2015 № 1236).
-                    </p>
-                </div>
-
-                <div class="info-cards" style="margin-top:36px;">
-                    <div class="info-card">
-                        <h4>Правообладатель</h4>
-                        <p>ИП Щепетильников Александр Владимирович<br>
-                        ИНН 254002476537 · ОГРНИП 326774600433115<br>
-                        Сайт: www.plushandko.ru</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>Продукты</h4>
-                        <p>Marine Safety Monitor — для флота<br>
-                        Energy Analytics Platform — для энергетики<br>
-                        Поставка: исполняемый файл (.exe), on-premise</p>
-                    </div>
-                </div>
-
-                <h2 style="margin-top:56px;">1. Marine Safety Monitor</h2>
-                <p class="text-muted" style="margin-bottom:20px;">
-                    Программное обеспечение для учёта инцидентов и управления эксплуатационными рисками
-                    на морском и речном флоте. Автономная работа на рабочем месте пользователя.
-                </p>
-
-                <h3>1.1. Функциональные характеристики</h3>
-                <ul style="margin:12px 0 24px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>учёт и регистрация инцидентов;</li>
-                    <li>дашборд (сводная картина);</li>
-                    <li>загрузка данных из файлов (Excel, CSV, JSON, XML — в объёме текущей версии);</li>
-                    <li>модули визуализации и анализа в составе текущей поставки;</li>
-                    <li>локальное хранение данных на компьютере пользователя;</li>
-                    <li>работа без обязательного постоянного подключения к сети Интернет;</li>
-                    <li>графический интерфейс пользователя.</li>
-                </ul>
-                <p style="margin:0 0 24px; color:#94a3b8; font-size:0.95rem;">
-                    Развитие контура «судно — береговой центр» и расширенной синхронизации
-                    выполняется в рамках пилотных внедрений и договорных доработок.
-                </p>
-
-                <h3>1.2. Установка и эксплуатация</h3>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Системные требования (типовые):</strong></p>
-                <ul style="margin:0 0 16px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>ОС: Windows 10 / 11 (64-bit) или совместимая;</li>
-                    <li>ОЗУ: от 4 ГБ (рекомендуется 8 ГБ);</li>
-                    <li>свободное место на диске: от 500 МБ;</li>
-                    <li>разрешение экрана: от 1280×720.</li>
-                </ul>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Установка:</strong></p>
-                <ol style="margin:0 0 16px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>получить у правообладателя дистрибутив в виде исполняемого файла (.exe);</li>
-                    <li>сохранить файл на компьютер;</li>
-                    <li>запустить .exe (при запросе системы безопасности Windows — подтвердить запуск);</li>
-                    <li>отдельный мастер установки не требуется — программа готова к работе после запуска.</li>
-                </ol>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Эксплуатация:</strong></p>
-                <ul style="margin:0 0 24px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>работа через графический интерфейс: ввод и просмотр данных, использование модулей текущей версии;</li>
-                    <li>данные сохраняются локально на компьютере пользователя;</li>
-                    <li>резервное копирование — копирование каталога/файлов данных программы;</li>
-                    <li>обновления и доработки предоставляются правообладателем в рамках пилота или договора.</li>
-                </ul>
-
-                <h2 style="margin-top:40px;">2. Energy Analytics Platform</h2>
-                <p class="text-muted" style="margin-bottom:20px;">
-                    Программное обеспечение для учёта инцидентов и управления рисками
-                    на энергетических объектах. Автономная работа на рабочем месте пользователя.
-                </p>
-
-                <h3>2.1. Функциональные характеристики</h3>
-                <ul style="margin:12px 0 24px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>учёт инцидентов на энергообъектах;</li>
-                    <li>реестр объектов и связанные модули текущей версии;</li>
-                    <li>дашборд и визуализация;</li>
-                    <li>загрузка данных из файлов (в объёме текущей версии);</li>
-                    <li>локальное хранение данных;</li>
-                    <li>on-premise использование без обязательной постоянной связи с внешними облачными сервисами;</li>
-                    <li>графический интерфейс пользователя.</li>
-                </ul>
-                <p style="margin:0 0 24px; color:#94a3b8; font-size:0.95rem;">
-                    Расширение модулей и интеграций выполняется в рамках пилотных внедрений
-                    и договорных доработок под задачи заказчика.
-                </p>
-
-                <h3>2.2. Установка и эксплуатация</h3>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Системные требования (типовые):</strong></p>
-                <ul style="margin:0 0 16px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>ОС: Windows 10 / 11 (64-bit) или совместимая;</li>
-                    <li>ОЗУ: от 4 ГБ (рекомендуется 8 ГБ);</li>
-                    <li>свободное место на диске: от 500 МБ;</li>
-                    <li>разрешение экрана: от 1280×720.</li>
-                </ul>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Установка:</strong></p>
-                <ol style="margin:0 0 16px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>получить у правообладателя дистрибутив в виде исполняемого файла (.exe);</li>
-                    <li>сохранить файл на компьютер;</li>
-                    <li>запустить .exe (при запросе системы безопасности Windows — подтвердить запуск);</li>
-                    <li>отдельный мастер установки не требуется — программа готова к работе после запуска.</li>
-                </ol>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Эксплуатация:</strong></p>
-                <ul style="margin:0 0 24px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>работа через графический интерфейс: ввод и просмотр данных, модули текущей версии;</li>
-                    <li>данные сохраняются локально на компьютере пользователя;</li>
-                    <li>резервное копирование — копирование каталога/файлов данных программы;</li>
-                    <li>обновления и доработки — у правообладателя в рамках пилота или договора.</li>
-                </ul>
-
-                <div class="info-cards" style="margin-top:32px;">
-                    <div class="info-card">
-                        <h4>Получение дистрибутива</h4>
-                        <p>Исполняемый файл (.exe) и пояснения по запуску предоставляются
-                        правообладателем по запросу: shepet007@mail.ru,
-                        +7 (914) 679-70-13 — в рамках пилота или лицензионного договора.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>Актуальность</h4>
-                        <p>Документация соответствует текущей поставке ПО.
-                        При изменении функций или порядка запуска страница обновляется.
-                        Прямая ссылка: <a href="https://www.plushandko.ru/#docs" style="color:#2dd4bf;">www.plushandko.ru/#docs</a></p>
-                    </div>
-                </div>
-
-                <p style="margin-top:40px; font-size:0.9rem; color:#94a3b8;">
-                    Настоящая страница размещена для целей соответствия требованиям к сведениям
-                    о программном обеспечении, размещаемым на сайте правообладателя.
-                </p>
-            </div>
-        </section>
+<section id="fleet" class="page">
+    <div class="container">
+        <p><a href="#home">← На главную</a></p>
+        <h1>Marine Safety Monitor</h1>
+        <p class="lead">Система сбора, визуализации и прогнозирования инцидентов для морского и речного флота. Полностью автономна.</p>
+        <p style="margin-top:24px"><a class="btn" href="#contact">Обсудить пилот для флота</a></p>
     </div>
+</section>
 
+<section id="energy" class="page">
+    <div class="container">
+        <p><a href="#home">← На главную</a></p>
+        <h1>Energy Analytics Platform</h1>
+        <p class="lead">Платформа сбора, визуализации и прогнозирования инцидентов для энергетических объектов.</p>
+        <p style="margin-top:24px"><a class="btn" href="#contact">Обсудить пилот для энергетики</a></p>
+    </div>
+</section>
+
+<section id="about" class="page">
+    <div class="container">
+        <h1>Щепетильников Александр Владимирович</h1>
+        <p class="lead">15 лет на подводном флоте. Выпускник МФТИ (дата-инженер, 2025). ИП с 17.06.2026.</p>
+    </div>
+</section>
+
+<section id="contact" class="page">
+    <div class="container">
+        <h1>Готовы обсудить пилот</h1>
+        <p>Александр Щепетильников<br>
+        <a href="tel:+79146797013">+7 (914) 679-70-13</a><br>
+        <a href="mailto:shepet007@mail.ru">shepet007@mail.ru</a><br>
+        ИП Щепетильников А.В. · ИНН 254002476537 · ОГРНИП 326774600433115</p>
+    </div>
+</section>
+
+<section id="docs" class="page">
+    <div class="container">
+        <h1>Документация на программное обеспечение</h1>
+        <p class="muted">Описание функциональных характеристик, сведения для установки и эксплуатации, а также информация о стоимости программного обеспечения правообладателя ИП Щепетильникова А.В. (подпункты «ж» и «н» пункта 4 Правил, утв. постановлением Правительства РФ от 16.11.2015 № 1236).</p>
+
+        <div class="card" style="margin:22px 0">
+            <h3>Правообладатель</h3>
+            <p>ИП Щепетильников Александр Владимирович<br>
+            ИНН 254002476537 · ОГРНИП 326774600433115<br>
+            Сайт: www.plushandko.ru<br>
+            Заявления в реестр отечественного ПО: № 380111 (Marine Safety Monitor), № 380112 (Energy Analytics Platform), дата регистрации заявлений 02.09.2026.</p>
+        </div>
+
+        <h2>Стоимость программного обеспечения (п. 4 «н»)</h2>
+        <p class="muted">Программное обеспечение распространяется на возмездной основе по модели простой (неисключительной) лицензии. Открытая лицензия и безвозмездное использование не предоставляются.</p>
+
+        <div class="price-box">
+            <h3 style="margin-top:0">Marine Safety Monitor</h3>
+            <p class="muted">Согласно тарифной политике правообладателя от 12.08.2026. Цены в рублях РФ. Условия фиксируются в договоре.</p>
+            <table>
+                <tr><td>Лицензия Marine Safety Monitor (годовая, на организацию)</td><td>890 000 ₽</td></tr>
+                <tr><td>Пилотное внедрение (1 объект, до 2 месяцев)</td><td>250 000 ₽</td></tr>
+                <tr><td>Техническая поддержка (12 месяцев)</td><td>150 000 ₽</td></tr>
+                <tr><td>Доработка / адаптация под заказчика (час)</td><td>5 000 ₽</td></tr>
+            </table>
+        </div>
+
+        <div class="price-box">
+            <h3 style="margin-top:0">Energy Analytics Platform</h3>
+            <p class="muted">Согласно тарифной политике правообладателя от 12.08.2026. Цены в рублях РФ. Условия фиксируются в договоре.</p>
+            <table>
+                <tr><td>Лицензия Energy Analytics Platform (годовая, на организацию)</td><td>890 000 ₽</td></tr>
+                <tr><td>Пилотное внедрение (1 объект, до 2 месяцев)</td><td>250 000 ₽</td></tr>
+                <tr><td>Техническая поддержка (12 месяцев)</td><td>150 000 ₽</td></tr>
+            </table>
+        </div>
+        <p>Открытая лицензия и иное безвозмездное использование программного обеспечения не предоставляются.</p>
+        <p class="muted">Пилот может засчитываться в стоимость лицензии при переходе на промышленную эксплуатацию — по соглашению сторон. Для государственных и крупных заказчиков возможны индивидуальные условия. Контакт: shepet007@mail.ru, +7 (914) 679-70-13.</p>
+
+        <h2>1. Marine Safety Monitor</h2>
+        <p>Программное обеспечение для учёта инцидентов и управления эксплуатационными рисками на морском и речном флоте. Автономная работа на рабочем месте пользователя. Поставка: исполняемый файл (.exe), on-premise.</p>
+        <h3>1.1. Функциональные характеристики</h3>
+        <ul>
+            <li>учёт и регистрация инцидентов;</li>
+            <li>дашборд (сводная картина);</li>
+            <li>загрузка данных из файлов (Excel, CSV, JSON, XML — в объёме текущей версии);</li>
+            <li>модули визуализации и анализа в составе текущей поставки;</li>
+            <li>локальное хранение данных на компьютере пользователя;</li>
+            <li>работа без обязательного постоянного подключения к сети Интернет;</li>
+            <li>графический интерфейс пользователя.</li>
+        </ul>
+        <p>Развитие контура «судно — береговой центр» выполняется в рамках пилотных внедрений и договорных доработок.</p>
+        <h3>1.2. Установка и эксплуатация</h3>
+        <p><b>Системные требования:</b> Windows 10/11 (64-bit), ОЗУ от 4 ГБ, свободное место от 500 МБ, экран от 1280×720.</p>
+        <ol>
+            <li>получить у правообладателя дистрибутив (.exe);</li>
+            <li>сохранить файл на компьютер;</li>
+            <li>запустить .exe (при запросе безопасности Windows — подтвердить запуск);</li>
+            <li>отдельный мастер установки не требуется.</li>
+        </ol>
+        <p>Данные сохраняются локально. Резервное копирование — копирование каталога данных программы.</p>
+
+        <h2>2. Energy Analytics Platform</h2>
+        <p>Программное обеспечение для учёта инцидентов и управления рисками на энергетических объектах. Поставка: исполняемый файл (.exe), on-premise.</p>
+        <h3>2.1. Функциональные характеристики</h3>
+        <ul>
+            <li>учёт инцидентов на энергообъектах;</li>
+            <li>реестр объектов и связанные модули текущей версии;</li>
+            <li>дашборд и визуализация;</li>
+            <li>журнал ТОиР, паспорт оборудования, рейтинг объектов;</li>
+            <li>загрузка данных из файлов;</li>
+            <li>локальное хранение данных;</li>
+            <li>on-premise использование без обязательной связи с внешними облачными сервисами;</li>
+            <li>графический интерфейс пользователя.</li>
+        </ul>
+        <h3>2.2. Установка и эксплуатация</h3>
+        <p>Требования и порядок установки — аналогично разделу 1.2. Программа запускается файлом .exe, отдельный мастер установки не требуется.</p>
+
+        <p class="muted" style="margin-top:28px">Настоящая страница содержит сведения, необходимые для установки и эксплуатации программного обеспечения, а также информацию о стоимости, размещаемые на сайте правообладателя.</p>
+    </div>
+</section>
 </main>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-links">
-            <a href="#fleet" data-page="fleet">Marine Safety Monitor</a>
-            <a href="#energy" data-page="energy">Energy Analytics Platform</a>
-            <a href="#docs" data-page="docs">Документация</a>
-            <a href="#" data-nav="about">О разработчике</a>
-            <a href="#" data-nav="contact">Контакты</a>
-        </div>
-        <p>© 2026 Plush&Ko Analytics. Все права защищены.</p>
-        <p style="font-size:0.75rem; opacity:0.7; margin-top:6px;">
-            ИП Щепетильников А.В. · ИНН 254002476537 · ОГРНИП 326774600433115
-        </p>
-    </div>
+<footer>
+    <div class="container">© 2026 Plush&amp;Ko Analytics · ИП Щепетильников А.В.</div>
 </footer>
 
 <script>
-(function() {
-    'use strict';
-
-    const homePage = document.getElementById('page-home');
-    const fleetPage = document.getElementById('page-fleet');
-    const energyPage = document.getElementById('page-energy');
-    const docsPage = document.getElementById('page-docs');
-    const dropdownToggle = document.getElementById('dropdownToggle');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navLinks = document.getElementById('navLinks');
-
-    function showPage(pageId, updateHash) {
-        if (typeof updateHash === 'undefined') updateHash = true;
-
-        homePage.style.display = 'none';
-        if (fleetPage) {
-            fleetPage.classList.remove('active');
-            fleetPage.style.display = 'none';
-        }
-        if (energyPage) {
-            energyPage.classList.remove('active');
-            energyPage.style.display = 'none';
-        }
-        if (docsPage) {
-            docsPage.classList.remove('active');
-            docsPage.style.display = 'none';
-        }
-
-        if (pageId === 'home') {
-            homePage.style.display = 'block';
-            if (updateHash) {
-                if (history.replaceState) {
-                    history.replaceState(null, '', window.location.pathname + window.location.search);
-                } else {
-                    window.location.hash = '';
-                }
-            }
-        } else if (pageId === 'fleet' && fleetPage) {
-            fleetPage.style.display = 'block';
-            setTimeout(function() { fleetPage.classList.add('active'); }, 10);
-            if (updateHash) window.location.hash = 'fleet';
-        } else if (pageId === 'energy' && energyPage) {
-            energyPage.style.display = 'block';
-            setTimeout(function() { energyPage.classList.add('active'); }, 10);
-            if (updateHash) window.location.hash = 'energy';
-        } else if (pageId === 'docs' && docsPage) {
-            docsPage.style.display = 'block';
-            setTimeout(function() { docsPage.classList.add('active'); }, 10);
-            if (updateHash) window.location.hash = 'docs';
-        }
-
-        if (navLinks) navLinks.classList.remove('mobile-open');
-        if (mobileToggle) mobileToggle.textContent = '☰';
-        if (dropdownMenu) dropdownMenu.classList.remove('show');
-        if (dropdownToggle) dropdownToggle.classList.remove('active');
+(function () {
+    function show(id) {
+        document.querySelectorAll(".page").forEach(function (el) { el.classList.remove("active"); });
+        var page = document.getElementById(id) || document.getElementById("home");
+        page.classList.add("active");
         window.scrollTo(0, 0);
     }
-
-    function pageFromHash() {
-        var h = (window.location.hash || '').replace(/^#/, '').toLowerCase();
-        if (h === 'fleet' || h === 'energy' || h === 'docs') return h;
-        return 'home';
+    function fromHash() {
+        var id = (location.hash || "#home").replace("#", "") || "home";
+        show(id);
     }
-
-    function goToSection(sectionId) {
-        showPage('home', true);
-        setTimeout(function() {
-            var target = document.getElementById(sectionId);
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 80);
-    }
-
-    document.querySelectorAll('[data-page]').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-            e.preventDefault();
-            var page = this.getAttribute('data-page');
-            if (page === 'home' || page === 'fleet' || page === 'energy' || page === 'docs') {
-                showPage(page, true);
-            }
-        });
-    });
-
-    document.querySelectorAll('[data-nav]').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-            e.preventDefault();
-            var target = this.getAttribute('data-nav');
-            if (target === 'about' || target === 'contact') goToSection(target);
-        });
-    });
-
-    var logoLink = document.getElementById('logoLink');
-    if (logoLink) {
-        logoLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            showPage('home', true);
-        });
-    }
-
-    if (dropdownToggle) {
-        dropdownToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            dropdownMenu.classList.toggle('show');
-            dropdownToggle.classList.toggle('active');
-        });
-    }
-
-    document.addEventListener('click', function(e) {
-        if (dropdownMenu && !e.target.closest('.dropdown')) {
-            dropdownMenu.classList.remove('show');
-            if (dropdownToggle) dropdownToggle.classList.remove('active');
-        }
-    });
-
-    if (mobileToggle) {
-        mobileToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('mobile-open');
-            mobileToggle.textContent = navLinks.classList.contains('mobile-open') ? '✕' : '☰';
-        });
-    }
-
-    window.addEventListener('hashchange', function() {
-        showPage(pageFromHash(), false);
-    });
-
-    showPage(pageFromHash(), false);
+    window.addEventListener("hashchange", fromHash);
+    fromHash();
 })();
 </script>
-
 </body>
 </html>

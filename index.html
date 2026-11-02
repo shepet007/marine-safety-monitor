@@ -43,8 +43,24 @@
         .dropdown-menu a { display: block; padding: 11px 22px; color: #94a3b8; font-size: 0.9rem; transition: all 0.2s ease; }
         .dropdown-menu a:hover { background: rgba(45, 212, 191, 0.08); color: #2dd4bf; }
 
-        .hero { position: relative; padding: 110px 0 100px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(7, 15, 26, 0.88) 0%, rgba(7, 15, 26, 0.72) 50%, rgba(7, 15, 26, 0.85) 100%), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: 0; }
+        .hero { position: relative; padding: 110px 0 100px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.05); background: #070f1a; }
+        .hero-slides { position: absolute; inset: 0; z-index: 0; }
+        .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; animation: heroFade 49s infinite; }
+        .hero-slide:nth-child(1) { animation-delay: 0s; }
+        .hero-slide:nth-child(2) { animation-delay: 7s; }
+        .hero-slide:nth-child(3) { animation-delay: 14s; }
+        .hero-slide:nth-child(4) { animation-delay: 21s; }
+        .hero-slide:nth-child(5) { animation-delay: 28s; }
+        .hero-slide:nth-child(6) { animation-delay: 35s; }
+        .hero-slide:nth-child(7) { animation-delay: 42s; }
+        @keyframes heroFade {
+            0%   { opacity: 0; }
+            3%   { opacity: 1; }
+            11%  { opacity: 1; }
+            14%  { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        .hero-overlay { position: absolute; inset: 0; z-index: 0; background: linear-gradient(135deg, rgba(7,15,26,0.9) 0%, rgba(7,15,26,0.75) 50%, rgba(7,15,26,0.88) 100%); }
         .hero .container { position: relative; z-index: 1; text-align: center; }
         .hero .badge { display: inline-block; background: rgba(45, 212, 191, 0.12); color: #2dd4bf; padding: 7px 18px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 28px; border: 1px solid rgba(45, 212, 191, 0.2); }
         .hero h1 { max-width: 860px; margin: 0 auto 24px; }
@@ -173,6 +189,16 @@
     <!-- ===== ГЛАВНАЯ ===== -->
     <div id="page-home">
         <section class="hero">
+            <div class="hero-slides">
+                <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=1920&q=80')"></div>
+                <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1920&q=80')"></div>
+                <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80')"></div>
+                <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1920&q=80')"></div>
+                <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80')"></div>
+                <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1920&q=80')"></div>
+                <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1920&q=80')"></div>
+            </div>
+            <div class="hero-overlay"></div>
             <div class="container">
                 <span class="badge">Платформа управления инцидентами и рисками</span>
                 <h1>Данные есть.<br><span class="text-accent">Картины нет.</span></h1>

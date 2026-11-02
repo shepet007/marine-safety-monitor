@@ -8,674 +8,134 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #070f1a;
-            color: #e2e8f0;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        h1, h2, h3, h4 {
-            font-weight: 600;
-            letter-spacing: -0.025em;
-            color: #f8fafc;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #070f1a; color: #e2e8f0; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+        h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.025em; color: #f8fafc; }
         h1 { font-size: 3.4rem; line-height: 1.12; }
         h2 { font-size: 2.35rem; line-height: 1.25; margin-bottom: 16px; }
         h3 { font-size: 1.4rem; margin-bottom: 10px; }
-
         .text-muted { color: #94a3b8; }
         .text-accent { color: #2dd4bf; }
         .text-center { text-align: center; }
 
-        /* ===== BUTTONS ===== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 32px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            cursor: pointer;
-            border: none;
-        }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.25s ease; cursor: pointer; border: none; }
+        .btn-primary { background: #2dd4bf; color: #070f1a; }
+        .btn-primary:hover { background: #14b8a6; transform: translateY(-1px); box-shadow: 0 10px 25px rgba(45, 212, 191, 0.25); }
+        .btn-outline { background: transparent; color: #f8fafc; border: 1.5px solid rgba(45, 212, 191, 0.5); }
+        .btn-outline:hover { background: rgba(45, 212, 191, 0.1); border-color: #2dd4bf; }
+        .btn-sm { padding: 10px 22px; font-size: 0.875rem; }
 
-        .btn-primary {
-            background: #2dd4bf;
-            color: #070f1a;
-        }
-
-        .btn-primary:hover {
-            background: #14b8a6;
-            transform: translateY(-1px);
-            box-shadow: 0 10px 25px rgba(45, 212, 191, 0.25);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #f8fafc;
-            border: 1.5px solid rgba(45, 212, 191, 0.5);
-        }
-
-        .btn-outline:hover {
-            background: rgba(45, 212, 191, 0.1);
-            border-color: #2dd4bf;
-        }
-
-        .btn-sm {
-            padding: 10px 22px;
-            font-size: 0.875rem;
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            padding: 18px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            position: sticky;
-            top: 0;
-            background: rgba(7, 15, 26, 0.92);
-            backdrop-filter: blur(16px);
-            z-index: 100;
-        }
-
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #f8fafc;
-            text-decoration: none;
-            letter-spacing: -0.03em;
-        }
-
+        .navbar { padding: 18px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.06); position: sticky; top: 0; background: rgba(7, 15, 26, 0.92); backdrop-filter: blur(16px); z-index: 100; }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.35rem; font-weight: 700; color: #f8fafc; text-decoration: none; letter-spacing: -0.03em; }
         .logo span { color: #2dd4bf; }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.925rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: #94a3b8; text-decoration: none; font-size: 0.925rem; font-weight: 500; transition: color 0.2s ease; }
         .nav-links a:hover { color: #2dd4bf; }
-
         .dropdown { position: relative; }
-
-        .dropdown-toggle {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #94a3b8;
-            background: none;
-            border: none;
-            font-family: inherit;
-            font-size: 0.925rem;
-            font-weight: 500;
-            padding: 0;
-        }
-
+        .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 6px; color: #94a3b8; background: none; border: none; font-family: inherit; font-size: 0.925rem; font-weight: 500; padding: 0; }
         .dropdown-toggle:hover { color: #2dd4bf; }
-
-        .dropdown-toggle .arrow {
-            font-size: 0.55rem;
-            transition: transform 0.25s ease;
-        }
-
+        .dropdown-toggle .arrow { font-size: 0.55rem; transition: transform 0.25s ease; }
         .dropdown-toggle.active .arrow { transform: rotate(180deg); }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #0f1c2e;
-            border-radius: 10px;
-            padding: 8px 0;
-            min-width: 240px;
-            border: 1px solid #1e293b;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            margin-top: 12px;
-        }
-
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #0f1c2e; border-radius: 10px; padding: 8px 0; min-width: 280px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); margin-top: 12px; }
         .dropdown-menu.show { display: block; }
+        .dropdown-menu a { display: block; padding: 11px 22px; color: #94a3b8; font-size: 0.9rem; transition: all 0.2s ease; }
+        .dropdown-menu a:hover { background: rgba(45, 212, 191, 0.08); color: #2dd4bf; }
 
-        .dropdown-menu a {
-            display: block;
-            padding: 11px 22px;
-            color: #94a3b8;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
+        .hero { position: relative; padding: 110px 0 100px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(7, 15, 26, 0.88) 0%, rgba(7, 15, 26, 0.72) 50%, rgba(7, 15, 26, 0.85) 100%), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: 0; }
+        .hero .container { position: relative; z-index: 1; text-align: center; }
+        .hero .badge { display: inline-block; background: rgba(45, 212, 191, 0.12); color: #2dd4bf; padding: 7px 18px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 28px; border: 1px solid rgba(45, 212, 191, 0.2); }
+        .hero h1 { max-width: 860px; margin: 0 auto 24px; }
+        .hero .subtitle { font-size: 1.2rem; color: #94a3b8; max-width: 620px; margin: 0 auto 40px; font-weight: 400; }
 
-        .dropdown-menu a:hover {
-            background: rgba(45, 212, 191, 0.08);
-            color: #2dd4bf;
-        }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; align-items: stretch; max-width: 980px; margin: 0 auto; }
+        .hero-card { display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(15, 28, 46, 0.85); border: 1.5px solid rgba(45, 212, 191, 0.35); border-radius: 10px; padding: 18px 28px; min-width: 220px; max-width: 260px; text-decoration: none; transition: all 0.25s ease; backdrop-filter: blur(6px); }
+        .hero-card:hover { background: rgba(15, 28, 46, 0.98); border-color: #2dd4bf; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(45, 212, 191, 0.2); }
+        .hero-card-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #2dd4bf; margin-bottom: 6px; }
+        .hero-card-title { font-size: 1rem; font-weight: 600; color: #f8fafc; text-align: center; line-height: 1.3; }
 
-        /* ===== HERO ===== */
-        .hero {
-            position: relative;
-            padding: 110px 0 100px;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                linear-gradient(135deg, rgba(7, 15, 26, 0.88) 0%, rgba(7, 15, 26, 0.72) 50%, rgba(7, 15, 26, 0.85) 100%),
-                url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            z-index: 0;
-        }
-
-        /* Альтернативный более «индустриальный» фон (можно заменить) */
-        /* background: linear-gradient(...), url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1920&q=80'); */
-
-        .hero .container {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-
-        .hero .badge {
-            display: inline-block;
-            background: rgba(45, 212, 191, 0.12);
-            color: #2dd4bf;
-            padding: 7px 18px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            margin-bottom: 28px;
-            border: 1px solid rgba(45, 212, 191, 0.2);
-        }
-
-        .hero h1 {
-            max-width: 860px;
-            margin: 0 auto 24px;
-        }
-
-        .hero .subtitle {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            max-width: 620px;
-            margin: 0 auto 40px;
-            font-weight: 400;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* ===== SECTIONS ===== */
-        .section {
-            padding: 88px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
+        .section { padding: 88px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .section:last-of-type { border-bottom: none; }
+        .section-label { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: #2dd4bf; margin-bottom: 14px; }
 
-        .section-label {
-            display: inline-block;
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 1.8px;
-            text-transform: uppercase;
-            color: #2dd4bf;
-            margin-bottom: 14px;
-        }
-
-        /* ===== PRODUCT CARDS ===== */
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 28px;
-            margin-top: 48px;
-        }
-
-        .product-card {
-            background: #0f1c2e;
-            border-radius: 14px;
-            padding: 36px 32px;
-            border: 1px solid #1e293b;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: #2dd4bf;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            border-color: #2dd4bf;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-        }
-
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
+        .product-card { background: #0f1c2e; border-radius: 14px; padding: 36px 32px; border: 1px solid #1e293b; transition: all 0.3s ease; text-decoration: none; color: inherit; display: block; position: relative; overflow: hidden; }
+        .product-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #2dd4bf; opacity: 0; transition: opacity 0.3s ease; }
+        .product-card:hover { transform: translateY(-4px); border-color: #2dd4bf; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); }
         .product-card:hover::before { opacity: 1; }
-
-        .product-card .tag {
-            display: inline-block;
-            background: rgba(45, 212, 191, 0.1);
-            color: #2dd4bf;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            padding: 4px 12px;
-            border-radius: 4px;
-            margin-bottom: 18px;
-        }
-
-        .product-card h3 {
-            font-size: 1.45rem;
-            margin-bottom: 12px;
-        }
-
-        .product-card p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-            line-height: 1.55;
-        }
-
-        .product-card .modules {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 28px;
-        }
-
-        .product-card .modules span {
-            background: #070f1a;
-            color: #94a3b8;
-            font-size: 0.78rem;
-            padding: 5px 12px;
-            border-radius: 5px;
-            border: 1px solid #1e293b;
-        }
-
-        .product-card .arrow-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #2dd4bf;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
+        .product-card .tag { display: inline-block; background: rgba(45, 212, 191, 0.1); color: #2dd4bf; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; padding: 4px 12px; border-radius: 4px; margin-bottom: 18px; }
+        .product-card h3 { font-size: 1.45rem; margin-bottom: 12px; }
+        .product-card p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 24px; line-height: 1.55; }
+        .product-card .modules { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+        .product-card .modules span { background: #070f1a; color: #94a3b8; font-size: 0.78rem; padding: 5px 12px; border-radius: 5px; border: 1px solid #1e293b; }
+        .product-card .arrow-link { display: inline-flex; align-items: center; gap: 6px; color: #2dd4bf; font-weight: 600; font-size: 0.9rem; }
         .product-card .arrow-link:hover { text-decoration: underline; }
 
-        /* ===== FEATURES ===== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 48px;
-        }
-
-        .feature-item {
-            background: #0f1c2e;
-            border-radius: 12px;
-            padding: 28px 24px;
-            border: 1px solid #1e293b;
-            transition: border-color 0.25s ease;
-        }
-
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+        .feature-item { background: #0f1c2e; border-radius: 12px; padding: 28px 24px; border: 1px solid #1e293b; transition: border-color 0.25s ease; }
         .feature-item:hover { border-color: rgba(45, 212, 191, 0.4); }
+        .feature-item h4 { font-size: 1.05rem; margin-bottom: 10px; color: #f1f5f9; }
+        .feature-item p { color: #94a3b8; font-size: 0.92rem; line-height: 1.55; }
 
-        .feature-item h4 {
-            font-size: 1.05rem;
-            margin-bottom: 10px;
-            color: #f1f5f9;
-        }
-
-        .feature-item p {
-            color: #94a3b8;
-            font-size: 0.92rem;
-            line-height: 1.55;
-        }
-
-        /* ===== PRODUCT PAGES ===== */
-        .product-page {
-            display: none;
-            animation: fadeIn 0.35s ease;
-        }
-
+        .product-page { display: none; animation: fadeIn 0.35s ease; }
         .product-page.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .product-page .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 36px;
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .product-page .back-link { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 36px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
         .product-page .back-link:hover { color: #2dd4bf; }
+        .product-page-header { margin-bottom: 48px; max-width: 720px; }
+        .product-page-header h1 { font-size: 2.8rem; margin-bottom: 16px; }
+        .modules-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 20px; }
+        .modules-list .module-item { background: #0f1c2e; border: 1px solid #1e293b; border-radius: 8px; padding: 14px 18px; color: #cbd5e1; font-size: 0.9rem; display: flex; align-items: center; gap: 12px; }
+        .modules-list .module-item::before { content: ''; width: 6px; height: 6px; background: #2dd4bf; border-radius: 50%; flex-shrink: 0; }
+        .info-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+        .info-card { background: #0f1c2e; border-radius: 12px; padding: 28px; border: 1px solid #1e293b; }
+        .info-card h4 { font-size: 1.05rem; margin-bottom: 10px; }
+        .info-card p { color: #94a3b8; font-size: 0.95rem; }
 
-        .product-page-header {
-            margin-bottom: 48px;
-            max-width: 720px;
-        }
-
-        .product-page-header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 16px;
-        }
-
-        .modules-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .modules-list .module-item {
-            background: #0f1c2e;
-            border: 1px solid #1e293b;
-            border-radius: 8px;
-            padding: 14px 18px;
-            color: #cbd5e1;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .modules-list .module-item::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: #2dd4bf;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .info-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-top: 48px;
-        }
-
-        .info-card {
-            background: #0f1c2e;
-            border-radius: 12px;
-            padding: 28px;
-            border: 1px solid #1e293b;
-        }
-
-        .info-card h4 {
-            font-size: 1.05rem;
-            margin-bottom: 10px;
-        }
-
-        .info-card p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
-        /* ===== ABOUT ===== */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 56px;
-            align-items: start;
-            margin-top: 32px;
-        }
-
-        .badge-list {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .badge-list li {
-            padding: 11px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
+        .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: start; margin-top: 32px; }
+        .badge-list { list-style: none; margin-top: 20px; }
+        .badge-list li { padding: 11px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: flex-start; gap: 12px; color: #94a3b8; font-size: 0.95rem; }
         .badge-list li strong { color: #f1f5f9; }
+        .badge-list .check { color: #2dd4bf; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+        .quote { margin-top: 28px; padding: 20px 24px; background: #0f1c2e; border-left: 3px solid #2dd4bf; border-radius: 0 10px 10px 0; color: #94a3b8; font-style: italic; font-size: 0.98rem; line-height: 1.6; }
+        .status-card { background: #0f1c2e; border-radius: 14px; padding: 32px; border: 1px solid #1e293b; }
+        .status-card h4 { margin-bottom: 20px; font-size: 1.1rem; }
 
-        .badge-list .check {
-            color: #2dd4bf;
-            font-weight: 700;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .quote {
-            margin-top: 28px;
-            padding: 20px 24px;
-            background: #0f1c2e;
-            border-left: 3px solid #2dd4bf;
-            border-radius: 0 10px 10px 0;
-            color: #94a3b8;
-            font-style: italic;
-            font-size: 0.98rem;
-            line-height: 1.6;
-        }
-
-        .status-card {
-            background: #0f1c2e;
-            border-radius: 14px;
-            padding: 32px;
-            border: 1px solid #1e293b;
-        }
-
-        .status-card h4 {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        /* ===== CONTACT ===== */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 56px;
-            margin-top: 40px;
-        }
-
-        .contact-info p {
-            color: #94a3b8;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .contact-info a {
-            color: #2dd4bf;
-            text-decoration: none;
-        }
-
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 40px; }
+        .contact-info p { color: #94a3b8; margin-bottom: 10px; font-size: 0.95rem; }
+        .contact-info a { color: #2dd4bf; text-decoration: none; }
         .contact-info a:hover { text-decoration: underline; }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 8px;
-            border: 1px solid #1e293b;
-            background: #0f1c2e;
-            color: #f8fafc;
-            font-size: 0.95rem;
-            margin-bottom: 14px;
-            transition: border-color 0.2s ease;
-            font-family: inherit;
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: #2dd4bf;
-        }
-
-        .contact-form textarea {
-            min-height: 130px;
-            resize: vertical;
-        }
-
+        .contact-form input, .contact-form textarea { width: 100%; padding: 14px 16px; border-radius: 8px; border: 1px solid #1e293b; background: #0f1c2e; color: #f8fafc; font-size: 0.95rem; margin-bottom: 14px; transition: border-color 0.2s ease; font-family: inherit; }
+        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #2dd4bf; }
+        .contact-form textarea { min-height: 130px; resize: vertical; }
         .contact-form .btn { width: 100%; }
 
-        /* ===== FOOTER ===== */
-        .footer {
-            padding: 48px 0 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            color: #64748b;
-            font-size: 0.875rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 36px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
+        .footer { padding: 48px 0 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center; color: #64748b; font-size: 0.875rem; }
+        .footer-links { display: flex; justify-content: center; gap: 36px; margin-bottom: 24px; flex-wrap: wrap; }
+        .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
         .footer-links a:hover { color: #2dd4bf; }
 
-
-        .price-box {
-            background: #0f1c2e;
-            border: 1px solid #1e293b;
-            border-radius: 14px;
-            padding: 28px 32px;
-            margin: 18px 0 24px;
-        }
+        .price-box { background: #0f1c2e; border: 1px solid #1e293b; border-radius: 14px; padding: 28px 32px; margin: 18px 0 24px; }
         .price-box h3 { margin-bottom: 8px; }
         .price-box table { width: 100%; border-collapse: collapse; margin-top: 12px; }
         .price-box td { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #cbd5e1; }
         .price-box td:last-child { text-align: right; font-weight: 600; color: #f8fafc; white-space: nowrap; }
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            h1 { font-size: 2.8rem; }
-            h2 { font-size: 2rem; }
-            .product-grid { gap: 20px; }
-            .about-grid { gap: 40px; }
-        }
 
+        @media (max-width: 1024px) { h1 { font-size: 2.8rem; } h2 { font-size: 2rem; } .product-grid { gap: 20px; } .about-grid { gap: 40px; } }
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.7rem; }
-            .hero { padding: 70px 0 60px; }
-            .product-grid,
-            .features-grid,
-            .about-grid,
-            .contact-grid,
-            .info-cards {
-                grid-template-columns: 1fr;
-            }
+            h1 { font-size: 2.2rem; } h2 { font-size: 1.7rem; } .hero { padding: 70px 0 60px; }
+            .product-grid, .features-grid, .about-grid, .contact-grid, .info-cards { grid-template-columns: 1fr; }
             .nav-links { display: none; }
-            .nav-links.mobile-open {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: #070f1a;
-                padding: 24px;
-                border-bottom: 1px solid #1e293b;
-                gap: 18px;
-            }
-            .mobile-toggle {
-                display: block;
-                font-size: 1.6rem;
-                cursor: pointer;
-                color: #f8fafc;
-                background: none;
-                border: none;
-            }
-            .dropdown-menu {
-                position: static;
-                transform: none;
-                box-shadow: none;
-                background: transparent;
-                border: none;
-                padding: 0;
-                margin-top: 8px;
-            }
+            .nav-links.mobile-open { display: flex; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: #070f1a; padding: 24px; border-bottom: 1px solid #1e293b; gap: 18px; }
+            .mobile-toggle { display: block; font-size: 1.6rem; cursor: pointer; color: #f8fafc; background: none; border: none; }
+            .dropdown-menu { position: static; transform: none; box-shadow: none; background: transparent; border: none; padding: 0; margin-top: 8px; }
             .modules-list { grid-template-columns: 1fr; }
+            .hero-card { width: 100%; max-width: 100%; }
         }
-
-        @media (min-width: 769px) {
-            .mobile-toggle { display: none; }
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 1.85rem; }
-            .container { padding: 0 16px; }
-            .product-card { padding: 28px 22px; }
-            .hero .subtitle { font-size: 1.05rem; }
-        }
+        @media (min-width: 769px) { .mobile-toggle { display: none; } }
+        @media (max-width: 480px) { h1 { font-size: 1.85rem; } .container { padding: 0 16px; } .product-card { padding: 28px 22px; } .hero .subtitle { font-size: 1.05rem; } }
     </style>
 </head>
 <body>
@@ -692,6 +152,11 @@
                 <div class="dropdown-menu" id="dropdownMenu">
                     <a href="#fleet" data-page="fleet">Marine Safety Monitor</a>
                     <a href="#energy" data-page="energy">Energy Analytics Platform</a>
+                    <a href="#salon" data-page="salon">Салон Lite</a>
+                    <a href="#clinic" data-page="clinic">Клиника Lite</a>
+                    <a href="#shop" data-page="shop">Магазин Lite</a>
+                    <a href="#yavka" data-page="yavka">Явка (клубы и кружки)</a>
+                    <a href="#autoschool" data-page="autoschool">Автошкола Lite</a>
                 </div>
             </div>
             <a href="#docs" data-page="docs">Документация</a>
@@ -712,12 +177,38 @@
                 <span class="badge">Платформа управления инцидентами и рисками</span>
                 <h1>Данные есть.<br><span class="text-accent">Картины нет.</span></h1>
                 <p class="subtitle">
-                    Автономная система сбора, визуализации и прогнозирования инцидентов 
-                    для флота и энергетики. Работает без интернета. Внедряется за 1 день.
+                    Автономные системы сбора, визуализации и прогнозирования инцидентов 
+                    для флота, энергетики и малого бизнеса. Работают без интернета. Внедряются за 1 день.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#fleet" data-page="fleet" class="btn btn-primary">Для флота</a>
-                    <a href="#energy" data-page="energy" class="btn btn-outline">Для энергетики</a>
+                    <a href="#fleet" data-page="fleet" class="hero-card">
+                        <span class="hero-card-label">Флот</span>
+                        <span class="hero-card-title">Marine Safety Monitor</span>
+                    </a>
+                    <a href="#energy" data-page="energy" class="hero-card">
+                        <span class="hero-card-label">Энергетика</span>
+                        <span class="hero-card-title">Energy Analytics Platform</span>
+                    </a>
+                    <a href="#salon" data-page="salon" class="hero-card">
+                        <span class="hero-card-label">Салоны красоты</span>
+                        <span class="hero-card-title">Салон Lite</span>
+                    </a>
+                    <a href="#clinic" data-page="clinic" class="hero-card">
+                        <span class="hero-card-label">Стоматологии</span>
+                        <span class="hero-card-title">Клиника Lite</span>
+                    </a>
+                    <a href="#shop" data-page="shop" class="hero-card">
+                        <span class="hero-card-label">Магазины</span>
+                        <span class="hero-card-title">Магазин Lite</span>
+                    </a>
+                    <a href="#yavka" data-page="yavka" class="hero-card">
+                        <span class="hero-card-label">Клубы и кружки</span>
+                        <span class="hero-card-title">Явка</span>
+                    </a>
+                    <a href="#autoschool" data-page="autoschool" class="hero-card">
+                        <span class="hero-card-label">Автошколы</span>
+                        <span class="hero-card-title">Автошкола Lite</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -727,49 +218,67 @@
             <div class="container">
                 <div class="text-center">
                     <span class="section-label">Продукты</span>
-                    <h2>Две отрасли — <span class="text-accent">одно ядро</span></h2>
+                    <h2>Семь продуктов — <span class="text-accent">одно ядро</span></h2>
                     <p class="text-muted" style="max-width: 580px; margin: 0 auto;">
-                        Мы не продаём «ещё один софт». Мы даём инструмент, 
-                        который реально используют штурманы и инженеры.
+                        Мы не продаём «ещё один софт». Мы даём инструменты, 
+                        которые реально используют штурманы, инженеры и владельцы бизнеса.
                     </p>
                 </div>
 
                 <div class="product-grid">
                     <a href="#fleet" data-page="fleet" class="product-card">
-                        <span class="tag">5 модулей</span>
+                        <span class="tag">10 модулей</span>
                         <h3>Marine Safety Monitor</h3>
-                        <p>
-                            Система для судоходных компаний, портов и служб безопасности мореплавания. 
-                            Отчёт о безопасности — за 15 минут вместо двух дней.
-                        </p>
-                        <div class="modules">
-                            <span>Дашборд</span>
-                            <span>Загрузка данных</span>
-                            <span>Инспектор</span>
-                            <span>Экономика рейса</span>
-                            <span>Прогноз рисков</span>
-                        </div>
+                        <p>Система для судоходных компаний, портов и служб безопасности мореплавания. Отчёт о безопасности — за 15 минут вместо двух дней.</p>
+                        <div class="modules"><span>Дашборд</span><span>Суда</span><span>Паспорт</span><span>Докование</span><span>Заправки</span><span>Инспектор</span><span>Прогноз</span><span>Калькулятор</span><span>Экономика рейса</span><span>Загрузка</span></div>
                         <span class="arrow-link">Подробнее →</span>
                     </a>
 
                     <a href="#energy" data-page="energy" class="product-card">
                         <span class="tag">14 модулей</span>
                         <h3>Energy Analytics Platform</h3>
-                        <p>
-                            Платформа для ТЭЦ, ГЭС, подстанций и сетевых организаций. 
-                            Прогнозирование отказов и оптимизация затрат на ТОиР.
-                        </p>
-                        <div class="modules">
-                            <span>Дашборд</span>
-                            <span>Объекты</span>
-                            <span>Инциденты</span>
-                            <span>Оборудование</span>
-                            <span>ТОиР</span>
-                            <span>SCADA</span>
-                            <span>Карта</span>
-                            <span>Прогноз</span>
-                            <span>Экономика</span>
-                        </div>
+                        <p>Платформа для ТЭЦ, ГЭС, подстанций и сетевых организаций. Прогнозирование отказов и оптимизация затрат на ТОиР.</p>
+                        <div class="modules"><span>Дашборд</span><span>Объекты</span><span>Инциденты</span><span>Оборудование</span><span>ТОиР</span><span>SCADA</span><span>Карта</span><span>Прогноз</span><span>Экономика</span></div>
+                        <span class="arrow-link">Подробнее →</span>
+                    </a>
+
+                    <a href="#salon" data-page="salon" class="product-card">
+                        <span class="tag">9 модулей</span>
+                        <h3>Салон Lite</h3>
+                        <p>Учёт клиентов, записей, оплат и расходников для салонов красоты. Реальная прибыль и напоминания. Без интернета.</p>
+                        <div class="modules"><span>Дашборд</span><span>Записи</span><span>Клиенты</span><span>Услуги</span><span>Мастера</span><span>Визиты</span><span>Склад</span><span>Настройки</span><span>Загрузка</span></div>
+                        <span class="arrow-link">Подробнее →</span>
+                    </a>
+
+                    <a href="#clinic" data-page="clinic" class="product-card">
+                        <span class="tag">6 модулей</span>
+                        <h3>Клиника Lite</h3>
+                        <p>Учёт пациентов, приёмов, оплат и склада для стоматологий и частных кабинетов. История болезни и расходники.</p>
+                        <div class="modules"><span>Сводка</span><span>Пациенты</span><span>Приёмы</span><span>Оплаты</span><span>Склад</span><span>Загрузка</span></div>
+                        <span class="arrow-link">Подробнее →</span>
+                    </a>
+
+                    <a href="#shop" data-page="shop" class="product-card">
+                        <span class="tag">6 модулей</span>
+                        <h3>Магазин Lite</h3>
+                        <p>Аналитика для небольших магазинов: где теряются деньги, что заканчивается, что не продаётся. Работает со сканером.</p>
+                        <div class="modules"><span>Дашборд</span><span>Рекомендации</span><span>Товары</span><span>Терминал</span><span>Склад</span><span>Загрузка</span></div>
+                        <span class="arrow-link">Подробнее →</span>
+                    </a>
+
+                    <a href="#yavka" data-page="yavka" class="product-card">
+                        <span class="tag">6 модулей</span>
+                        <h3>Явка (клубы и кружки)</h3>
+                        <p>Учёт клиентов, абонементов, посещений и оплат для детских центров, школ и кружков. Напоминания и отчёты.</p>
+                        <div class="modules"><span>Клиенты</span><span>Абонементы</span><span>Посещения</span><span>Оплаты</span><span>Напоминания</span><span>Отчёты</span></div>
+                        <span class="arrow-link">Подробнее →</span>
+                    </a>
+
+                    <a href="#autoschool" data-page="autoschool" class="product-card">
+                        <span class="tag">7 модулей</span>
+                        <h3>Автошкола Lite</h3>
+                        <p>Учёт курсантов, групп, часов вождения, оплат и экзаменов. Долги и напоминания. Без интернета.</p>
+                        <div class="modules"><span>Сводка</span><span>Курсанты</span><span>Группы</span><span>Оплаты</span><span>Занятия</span><span>Результаты</span><span>Загрузка</span></div>
                         <span class="arrow-link">Подробнее →</span>
                     </a>
                 </div>
@@ -785,30 +294,12 @@
                 </div>
 
                 <div class="features-grid">
-                    <div class="feature-item">
-                        <h4>On-premise + Offline</h4>
-                        <p>Данные не покидают ваш контур. Работает в море, на удалённых объектах и в закрытых сетях.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Внедрение за 1 день</h4>
-                        <p>Не требует IT-команды. Обучение пользователей — около часа. Установка через .exe.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Модульная архитектура</h4>
-                        <p>Одно ядро + отраслевые модули. Легко масштабируется на новые направления.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Прогнозирование рисков</h4>
-                        <p>Индикатор опасности по каждому объекту на основе регрессионного анализа.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Понятный интерфейс</h4>
-                        <p>Создан человеком, который 15 лет ходил в море. Без лишней сложности.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Экономия на ТОиР</h4>
-                        <p>Оптимизация затрат на ремонт и обслуживание за счёт раннего выявления проблем.</p>
-                    </div>
+                    <div class="feature-item"><h4>Включены в реестр ПО</h4><p>Marine Safety Monitor и Energy Analytics Platform включены в реестр российского ПО (записи № 35772 и № 35773).</p></div>
+                    <div class="feature-item"><h4>On-premise + Offline</h4><p>Данные не покидают ваш контур. Работает в море, на удалённых объектах и в закрытых сетях.</p></div>
+                    <div class="feature-item"><h4>Внедрение за 1 день</h4><p>Не требует IT-команды. Обучение пользователей — около часа. Установка через .exe.</p></div>
+                    <div class="feature-item"><h4>Модульная архитектура</h4><p>Одно ядро + отраслевые модули. Легко масштабируется на новые направления.</p></div>
+                    <div class="feature-item"><h4>Прогнозирование рисков</h4><p>Индикатор опасности по каждому объекту на основе регрессионного анализа.</p></div>
+                    <div class="feature-item"><h4>Понятный интерфейс</h4><p>Создан человеком, который 15 лет ходил в море. Без лишней сложности.</p></div>
                 </div>
             </div>
         </section>
@@ -820,40 +311,29 @@
                 <div class="about-grid">
                     <div>
                         <h2>Щепетильников<br><span class="text-accent">Александр Владимирович</span></h2>
-                        <p style="color:#94a3b8; font-size:1.05rem; margin:12px 0 8px;">
-                            15 лет на подводном флоте. Командир штурманской боевой части, 
-                            флагманский штурман бригады. Выпускник МФТИ (дата-инженер, 2025).
-                        </p>
-
+                        <p style="color:#94a3b8; font-size:1.05rem; margin:12px 0 8px;">15 лет на подводном флоте. Командир штурманской боевой части, флагманский штурман бригады. Выпускник МФТИ (дата-инженер, 2025).</p>
                         <ul class="badge-list">
                             <li><span class="check">✓</span> <strong>15 лет</strong> на подводном флоте (БЧ-1, флагманский штурман)</li>
                             <li><span class="check">✓</span> <strong>МФТИ</strong> — специальность «Дата-инженер»</li>
                             <li><span class="check">✓</span> <strong>Патент</strong> — заявка № 2026600310 (Роспатент)</li>
+                            <li><span class="check">✓</span> <strong>Реестр ПО</strong> — Marine Safety Monitor (№ 35772), Energy Analytics Platform (№ 35773)</li>
                             <li><span class="check">✓</span> <strong>ИП</strong> зарегистрирован 17.06.2026</li>
                             <li><span class="check">✓</span> Вся система создана лично — от идеи до готового .exe</li>
                         </ul>
-
-                        <div class="quote">
-                            «Я 15 лет ходил в море и знаю, что нужно штурману и его начальнику. 
-                            Им не нужна SIEM за 300 млн. Им нужен простой и понятный инструмент, 
-                            который работает без интернета и не требует обучения».
-                        </div>
+                        <div class="quote">«Я 15 лет ходил в море и знаю, что нужно штурману и его начальнику. Им не нужна SIEM за 300 млн. Им нужен простой и понятный инструмент, который работает без интернета и не требует обучения».</div>
                     </div>
-
                     <div class="status-card">
                         <h4>Статус проекта</h4>
                         <ul class="badge-list">
-                            <li><span class="check">✓</span> <strong>TRL 5</strong> — протестировано на реальных данных</li>
+                            <li><span class="check">✓</span> <strong>Реестр ПО</strong> — записи № 35772 и № 35773</li>
+                            <li><span class="check">✓</span> <strong>TRL 6</strong> — протестировано на реальных данных</li>
                             <li><span class="check">✓</span> <strong>55+</strong> инцидентов в тестовой базе</li>
                             <li><span class="check">✓</span> <strong>18</strong> энергетических объектов</li>
                             <li><span class="check">✓</span> Готовый .exe для установки</li>
                             <li><span class="check">✓</span> Ищем партнёров для пилотных внедрений</li>
                         </ul>
                         <div style="margin-top:24px; background:#070f1a; border-radius:8px; padding:16px; border:1px solid #1e293b;">
-                            <p style="font-size:0.85rem; color:#94a3b8; margin:0; line-height:1.5;">
-                                Продукт собран, протестирован и готов к пилотированию 
-                                на реальных объектах флота и энергетики.
-                            </p>
+                            <p style="font-size:0.85rem; color:#94a3b8; margin:0; line-height:1.5;">Продукты собраны, протестированы и готовы к пилотированию на реальных объектах флота, энергетики и малого бизнеса.</p>
                         </div>
                     </div>
                 </div>
@@ -866,12 +346,8 @@
                 <div class="text-center">
                     <span class="section-label">Контакты</span>
                     <h2>Готовы обсудить <span class="text-accent">пилот</span></h2>
-                    <p class="text-muted" style="max-width:520px; margin:0 auto;">
-                        Покажем демо, ответим на вопросы и рассчитаем экономический эффект 
-                        для вашей организации.
-                    </p>
+                    <p class="text-muted" style="max-width:520px; margin:0 auto;">Покажем демо, ответим на вопросы и рассчитаем экономический эффект для вашей организации.</p>
                 </div>
-
                 <div class="contact-grid">
                     <div class="contact-info">
                         <h4 style="margin-bottom:18px; font-size:1.15rem;">Связаться напрямую</h4>
@@ -879,18 +355,13 @@
                         <p style="margin-top:12px;"><a href="tel:+79146797013">+7 (914) 679-70-13</a></p>
                         <p><a href="mailto:shepet007@mail.ru">shepet007@mail.ru</a></p>
                         <p><a href="https://www.plushandko.ru" target="_blank">www.plushandko.ru</a></p>
-
                         <div style="margin-top:32px; background:#0f1c2e; border-radius:12px; padding:22px; border:1px solid #1e293b;">
                             <p style="font-size:0.88rem; color:#94a3b8; margin:0; line-height:1.6;">
                                 <strong style="color:#f1f5f9;">Юридический статус</strong><br>
-                                ИП Щепетильников А.В.<br>
-                                ИНН 254002476537<br>
-                                ОГРНИП 326774600433115<br>
-                                Заявка на патент № 2026600310
+                                ИП Щепетильников А.В.<br>ИНН 254002476537<br>ОГРНИП 326774600433115<br>Заявка на патент № 2026600310
                             </p>
                         </div>
                     </div>
-
                     <div>
                         <form class="contact-form" id="contactForm">
                             <input type="text" name="name" placeholder="Ваше имя" required>
@@ -910,35 +381,27 @@
         <section class="section" style="padding-top:48px;">
             <div class="container">
                 <a href="#" class="back-link" data-page="home">← На главную</a>
-
                 <div class="product-page-header">
                     <h1>Marine Safety Monitor</h1>
-                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">
-                        Система сбора, визуализации и прогнозирования инцидентов 
-                        для морского и речного флота. Полностью автономна. Работает без интернета.
-                    </p>
+                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">Система сбора, визуализации и прогнозирования инцидентов для морского и речного флота. Полностью автономна. Работает без интернета.</p>
                 </div>
-
                 <h3>Ключевые модули</h3>
                 <div class="modules-list">
                     <div class="module-item">Дашборд — общая картина по флоту</div>
-                    <div class="module-item">Загрузка данных — Excel, CSV, JSON, XML</div>
+                    <div class="module-item">Суда — реестр и статусы</div>
+                    <div class="module-item">Паспорт судна — характеристики и фото</div>
+                    <div class="module-item">Докование — учёт ремонтов</div>
+                    <div class="module-item">Заправки — топливо и стоимость</div>
                     <div class="module-item">Мобильный инспектор — фиксация на борту</div>
-                    <div class="module-item">Экономика рейса — оптимизация расхода топлива</div>
                     <div class="module-item">Прогноз инцидентов — индикатор риска</div>
+                    <div class="module-item">Финансовый калькулятор — анализ ущерба</div>
+                    <div class="module-item">Экономика рейса — оптимизация расхода топлива</div>
+                    <div class="module-item">Загрузка — Excel, CSV, JSON, XML</div>
                 </div>
-
                 <div class="info-cards">
-                    <div class="info-card">
-                        <h4>Для кого</h4>
-                        <p>Судоходные компании, порты, Росморпорт, службы безопасности мореплавания.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>Результат</h4>
-                        <p>Отчёт о безопасности — 15 минут вместо 2 дней. Выявление проблемных судов и экипажей.</p>
-                    </div>
+                    <div class="info-card"><h4>Для кого</h4><p>Судоходные компании, порты, Росморпорт, службы безопасности мореплавания.</p></div>
+                    <div class="info-card"><h4>Результат</h4><p>Отчёт о безопасности — 15 минут вместо 2 дней. Выявление проблемных судов и экипажей.</p></div>
                 </div>
-
                 <div style="margin-top:52px; text-align:center;">
                     <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для флота</a>
                 </div>
@@ -951,15 +414,10 @@
         <section class="section" style="padding-top:48px;">
             <div class="container">
                 <a href="#" class="back-link" data-page="home">← На главную</a>
-
                 <div class="product-page-header">
                     <h1>Energy Analytics Platform</h1>
-                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">
-                        Платформа сбора, визуализации и прогнозирования инцидентов 
-                        для энергетических объектов. ТЭЦ, ГЭС, подстанции и сети — в одном интерфейсе.
-                    </p>
+                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">Платформа сбора, визуализации и прогнозирования инцидентов для энергетических объектов. ТЭЦ, ГЭС, подстанции и сети — в одном интерфейсе.</p>
                 </div>
-
                 <h3>14 модулей для полного управления</h3>
                 <div class="modules-list">
                     <div class="module-item">Дашборд — общая картина</div>
@@ -977,18 +435,10 @@
                     <div class="module-item">Прогноз — оценка рисков</div>
                     <div class="module-item">Экономика ТОиР — оптимизация затрат</div>
                 </div>
-
                 <div class="info-cards">
-                    <div class="info-card">
-                        <h4>Для кого</h4>
-                        <p>ТЭЦ, ГЭС, подстанции, электросетевые организации, городская энергетика.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>Результат</h4>
-                        <p>Прогнозирование отказов. Сокращение простоев. Экономия на ТОиР до 15%.</p>
-                    </div>
+                    <div class="info-card"><h4>Для кого</h4><p>ТЭЦ, ГЭС, подстанции, электросетевые организации, городская энергетика.</p></div>
+                    <div class="info-card"><h4>Результат</h4><p>Прогнозирование отказов. Сокращение простоев. Экономия на ТОиР до 15%.</p></div>
                 </div>
-
                 <div style="margin-top:52px; text-align:center;">
                     <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для энергетики</a>
                 </div>
@@ -996,8 +446,196 @@
         </section>
     </div>
 
+    <!-- ===== СТРАНИЦА САЛОН LITE ===== -->
+    <div id="page-salon" class="product-page">
+        <section class="section" style="padding-top:48px;">
+            <div class="container">
+                <a href="#" class="back-link" data-page="home">← На главную</a>
+                <div class="product-page-header">
+                    <h1>Салон Lite</h1>
+                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">Учёт клиентов, записей, оплат и расходников для салонов красоты. Реальная прибыль без интернета. Данные только на вашем компьютере.</p>
+                </div>
+                <h3>9 модулей для салона</h3>
+                <div class="modules-list">
+                    <div class="module-item">Дашборд — реальная прибыль и графики</div>
+                    <div class="module-item">Записи — расписание и напоминания</div>
+                    <div class="module-item">Клиенты — история визитов</div>
+                    <div class="module-item">Услуги — прайс и себестоимость</div>
+                    <div class="module-item">Мастера — процент от выручки</div>
+                    <div class="module-item">Визиты — учёт оказанных услуг</div>
+                    <div class="module-item">Склад — приход, расход, остатки</div>
+                    <div class="module-item">Настройки — всё в одном месте</div>
+                    <div class="module-item">Загрузка — Excel</div>
+                </div>
+                <div class="info-cards">
+                    <div class="info-card"><h4>Для кого</h4><p>Салоны красоты, массажные кабинеты, маникюрные студии.</p></div>
+                    <div class="info-card"><h4>Результат</h4><p>Реальная прибыль (с учётом расходников и мастеров). Напоминания о записях. Контроль склада.</p></div>
+                </div>
+                <div style="margin-top:30px;" class="price-box">
+                    <h3>Стоимость</h3>
+                    <table>
+                        <tr><td>Лицензия на 1 компьютер (разово)</td><td>20 000 ₽</td></tr>
+                        <tr><td>Пилот (3 дня, засчитывается при покупке)</td><td>3 000 ₽</td></tr>
+                        <tr><td>Доработка под ваш салон</td><td>По договорённости</td></tr>
+                    </table>
+                </div>
+                <div style="margin-top:52px; text-align:center;">
+                    <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для салона</a>
+                </div>
+            </div>
+        </section>
+    </div>
 
-    <!-- ===== ЦЕНЫ (п. 4 «н») ===== -->
+    <!-- ===== СТРАНИЦА КЛИНИКА LITE ===== -->
+    <div id="page-clinic" class="product-page">
+        <section class="section" style="padding-top:48px;">
+            <div class="container">
+                <a href="#" class="back-link" data-page="home">← На главную</a>
+                <div class="product-page-header">
+                    <h1>Клиника Lite</h1>
+                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">Учёт пациентов, приёмов, оплат и склада для стоматологий и частных кабинетов. История болезни и расходники — в одном окне.</p>
+                </div>
+                <h3>6 модулей для клиники</h3>
+                <div class="modules-list">
+                    <div class="module-item">Сводка — ключевые цифры и должники</div>
+                    <div class="module-item">Пациенты — карточка и история лечения</div>
+                    <div class="module-item">Приёмы — услуга, зуб, стоимость</div>
+                    <div class="module-item">Оплаты — кто сколько заплатил</div>
+                    <div class="module-item">Склад — приход, расход, остатки</div>
+                    <div class="module-item">Загрузка — Excel</div>
+                </div>
+                <div class="info-cards">
+                    <div class="info-card"><h4>Для кого</h4><p>Стоматологии, частные медицинские кабинеты.</p></div>
+                    <div class="info-card"><h4>Результат</h4><p>История лечения пациента. Контроль долгов. Напоминания о закупке расходников.</p></div>
+                </div>
+                <div style="margin-top:30px;" class="price-box">
+                    <h3>Стоимость</h3>
+                    <table>
+                        <tr><td>Лицензия на 1 компьютер (разово)</td><td>20 000 ₽</td></tr>
+                        <tr><td>Пилот (3 дня, засчитывается при покупке)</td><td>3 000 ₽</td></tr>
+                        <tr><td>Доработка под вашу клинику</td><td>По договорённости</td></tr>
+                    </table>
+                </div>
+                <div style="margin-top:52px; text-align:center;">
+                    <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для клиники</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== СТРАНИЦА МАГАЗИН LITE ===== -->
+    <div id="page-shop" class="product-page">
+        <section class="section" style="padding-top:48px;">
+            <div class="container">
+                <a href="#" class="back-link" data-page="home">← На главную</a>
+                <div class="product-page-header">
+                    <h1>Магазин Lite</h1>
+                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">Аналитика для небольших магазинов: где теряются деньги, что заканчивается, что не продаётся. Работает со сканером штрихкодов.</p>
+                </div>
+                <h3>6 модулей для магазина</h3>
+                <div class="modules-list">
+                    <div class="module-item">Дашборд — выручка, маржа, неликвид</div>
+                    <div class="module-item">Рекомендации — что делать</div>
+                    <div class="module-item">Товары — цена, закупка, маржа</div>
+                    <div class="module-item">Терминал — сканер и продажи</div>
+                    <div class="module-item">Склад — приход, расход, остатки</div>
+                    <div class="module-item">Загрузка — Excel</div>
+                </div>
+                <div class="info-cards">
+                    <div class="info-card"><h4>Для кого</h4><p>Небольшие магазины, вейп-шопы, торговые точки.</p></div>
+                    <div class="info-card"><h4>Результат</h4><p>Показывает, где заморожены деньги. Напоминает о закупке. Считает реальную прибыль.</p></div>
+                </div>
+                <div style="margin-top:30px;" class="price-box">
+                    <h3>Стоимость</h3>
+                    <table>
+                        <tr><td>Лицензия на 1 компьютер (разово)</td><td>20 000 ₽</td></tr>
+                        <tr><td>Пилот (3 дня, засчитывается при покупке)</td><td>3 000 ₽</td></tr>
+                        <tr><td>Доработка под ваш магазин</td><td>По договорённости</td></tr>
+                    </table>
+                </div>
+                <div style="margin-top:52px; text-align:center;">
+                    <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для магазина</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== СТРАНИЦА ЯВКА ===== -->
+    <div id="page-yavka" class="product-page">
+        <section class="section" style="padding-top:48px;">
+            <div class="container">
+                <a href="#" class="back-link" data-page="home">← На главную</a>
+                <div class="product-page-header">
+                    <h1>Явка</h1>
+                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">Учёт клиентов, абонементов, посещений и оплат для детских центров, школ и кружков. Напоминания и отчёты. Без интернета.</p>
+                </div>
+                <h3>6 модулей для клубов и кружков</h3>
+                <div class="modules-list">
+                    <div class="module-item">Клиенты — карточка и поиск</div>
+                    <div class="module-item">Абонементы — 4/6/8/10/12 занятий</div>
+                    <div class="module-item">Посещения — списание занятий</div>
+                    <div class="module-item">Оплаты — учёт платежей и долгов</div>
+                    <div class="module-item">Напоминания — «остался 1 урок»</div>
+                    <div class="module-item">Отчёты — сводка и Excel</div>
+                </div>
+                <div class="info-cards">
+                    <div class="info-card"><h4>Для кого</h4><p>Детские центры, школы, кружки, секции.</p></div>
+                    <div class="info-card"><h4>Результат</h4><p>Порядок в абонементах и оплатах. Напоминания о долгах. Отчёты для руководителя.</p></div>
+                </div>
+                <div style="margin-top:30px;" class="price-box">
+                    <h3>Стоимость</h3>
+                    <table>
+                        <tr><td>Лицензия на 1 компьютер (разово)</td><td>20 000 ₽</td></tr>
+                        <tr><td>Пилот (3 дня, засчитывается при покупке)</td><td>3 000 ₽</td></tr>
+                        <tr><td>Доработка под ваш клуб</td><td>По договорённости</td></tr>
+                    </table>
+                </div>
+                <div style="margin-top:52px; text-align:center;">
+                    <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для клуба</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== СТРАНИЦА АВТОШКОЛА LITE ===== -->
+    <div id="page-autoschool" class="product-page">
+        <section class="section" style="padding-top:48px;">
+            <div class="container">
+                <a href="#" class="back-link" data-page="home">← На главную</a>
+                <div class="product-page-header">
+                    <h1>Автошкола Lite</h1>
+                    <p style="font-size:1.15rem; color:#94a3b8; line-height:1.6;">Учёт курсантов, групп, часов вождения, оплат и экзаменов для автошкол. Долги и напоминания. Без интернета.</p>
+                </div>
+                <h3>7 модулей для автошколы</h3>
+                <div class="modules-list">
+                    <div class="module-item">Сводка — курсанты, группы, долги</div>
+                    <div class="module-item">Курсанты — карточка и поиск</div>
+                    <div class="module-item">Группы — список и фильтр</div>
+                    <div class="module-item">Оплаты — должники и внесение</div>
+                    <div class="module-item">Занятия — списание часов</div>
+                    <div class="module-item">Результаты — экзамены и оценки</div>
+                    <div class="module-item">Загрузка — Excel</div>
+                </div>
+                <div class="info-cards">
+                    <div class="info-card"><h4>Для кого</h4><p>Автошколы, учебные центры.</p></div>
+                    <div class="info-card"><h4>Результат</h4><p>Порядок в часах вождения и оплатах. Напоминания о долгах. Учёт экзаменов.</p></div>
+                </div>
+                <div style="margin-top:30px;" class="price-box">
+                    <h3>Стоимость</h3>
+                    <table>
+                        <tr><td>Лицензия на 1 компьютер (разово)</td><td>20 000 ₽</td></tr>
+                        <tr><td>Пилот (3 дня, засчитывается при покупке)</td><td>3 000 ₽</td></tr>
+                        <tr><td>Доработка под вашу автошколу</td><td>По договорённости</td></tr>
+                    </table>
+                </div>
+                <div style="margin-top:52px; text-align:center;">
+                    <a href="#" class="btn btn-primary" style="padding:15px 42px;" data-nav="contact">Обсудить пилот для автошколы</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== ЦЕНЫ ===== -->
     <div id="page-prices" class="product-page">
         <section class="section">
             <div class="container">
@@ -1005,12 +643,7 @@
                 <div class="product-page-header">
                     <span class="section-label">Тарифная политика</span>
                     <h1>Стоимость программного обеспечения</h1>
-                    <p class="text-muted" style="max-width:720px;">
-                        Программное обеспечение распространяется на возмездной основе по модели простой
-                        (неисключительной) лицензии. Открытая лицензия и безвозмездное использование не предоставляются.
-                        Цены в рублях РФ согласно тарифной политике правообладателя от 12.08.2026.
-                        Условия фиксируются в договоре.
-                    </p>
+                    <p class="text-muted" style="max-width:720px;">Программное обеспечение распространяется на возмездной основе по модели простой (неисключительной) лицензии. Открытая лицензия и безвозмездное использование не предоставляются. Цены в рублях РФ согласно тарифной политике правообладателя от 12.08.2026. Условия фиксируются в договоре.</p>
                 </div>
 
                 <div class="price-box">
@@ -1031,6 +664,26 @@
                         <tr><td>Лицензия Energy Analytics Platform (годовая, на организацию)</td><td>890 000 ₽</td></tr>
                         <tr><td>Пилотное внедрение (1 объект, до 2 месяцев)</td><td>250 000 ₽</td></tr>
                         <tr><td>Техническая поддержка (12 месяцев)</td><td>150 000 ₽</td></tr>
+                    </table>
+                </div>
+
+                <div class="price-box">
+                    <h3>Салон Lite / Клиника Lite / Магазин Lite / Автошкола Lite</h3>
+                    <p class="text-muted">Разовая лицензия на 1 компьютер. Без подписки.</p>
+                    <table>
+                        <tr><td>Лицензия на 1 компьютер (разово)</td><td>20 000 ₽</td></tr>
+                        <tr><td>Пилот (3 дня, засчитывается при покупке)</td><td>3 000 ₽</td></tr>
+                        <tr><td>Доработка под клиента</td><td>По договорённости</td></tr>
+                    </table>
+                </div>
+
+                <div class="price-box">
+                    <h3>Явка</h3>
+                    <p class="text-muted">Разовая лицензия на 1 компьютер. Без подписки.</p>
+                    <table>
+                        <tr><td>Лицензия на 1 компьютер (разово)</td><td>20 000 ₽</td></tr>
+                        <tr><td>Пилот (3 дня, засчитывается при покупке)</td><td>3 000 ₽</td></tr>
+                        <tr><td>Доработка под клиента</td><td>По договорённости</td></tr>
                     </table>
                 </div>
 
@@ -1043,7 +696,7 @@
         </section>
     </div>
 
-    <!-- ===== ДОКУМЕНТАЦИЯ (п. 4 «ж») ===== -->
+    <!-- ===== ДОКУМЕНТАЦИЯ ===== -->
     <div id="page-docs" class="product-page">
         <section class="section">
             <div class="container">
@@ -1051,60 +704,16 @@
                 <div class="product-page-header">
                     <span class="section-label">Документация</span>
                     <h1>Документация на программное обеспечение</h1>
-                    <p class="text-muted" style="max-width:720px;">
-                        Описание функциональных характеристик, сведения для установки и эксплуатации,
-                        а также информация о стоимости программного обеспечения правообладателя
-                        ИП Щепетильникова А.В. (подпункты «ж» и «н» пункта 4 Правил,
-                        утв. постановлением Правительства РФ от 16.11.2015 № 1236).
-                    </p>
+                    <p class="text-muted" style="max-width:720px;">Описание функциональных характеристик, сведения для установки и эксплуатации, а также информация о стоимости программного обеспечения правообладателя ИП Щепетильникова А.В.</p>
                 </div>
 
                 <div class="info-cards" style="margin-top:36px;">
-                    <div class="info-card">
-                        <h4>Правообладатель</h4>
-                        <p>ИП Щепетильников Александр Владимирович<br>
-                        ИНН 254002476537 · ОГРНИП 326774600433115<br>
-                        Сайт: www.plushandko.ru</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>Продукты</h4>
-                        <p>Marine Safety Monitor — для флота<br>
-                        Energy Analytics Platform — для энергетики<br>
-                        Поставка: исполняемый файл (.exe), on-premise</p>
-                    </div>
+                    <div class="info-card"><h4>Правообладатель</h4><p>ИП Щепетильников Александр Владимирович<br>ИНН 254002476537 · ОГРНИП 326774600433115<br>Сайт: www.plushandko.ru</p></div>
+                    <div class="info-card"><h4>Продукты</h4><p>Marine Safety Monitor — для флота (реестр № 35772)<br>Energy Analytics Platform — для энергетики (реестр № 35773)<br>Салон Lite, Клиника Lite, Магазин Lite, Явка, Автошкола Lite — для малого бизнеса</p></div>
                 </div>
 
-
-                <h2 style="margin-top:56px;">Стоимость программного обеспечения (п. 4 «н»)</h2>
-                <p class="text-muted" style="margin-bottom:16px;">
-                    Программное обеспечение распространяется на возмездной основе по модели простой
-                    (неисключительной) лицензии. Открытая лицензия и безвозмездное использование не предоставляются.
-                    Согласно тарифной политике правообладателя от 12.08.2026. Цены в рублях РФ. Условия фиксируются в договоре.
-                </p>
-                <div class="price-box">
-                    <h3>Marine Safety Monitor</h3>
-                    <table>
-                        <tr><td>Лицензия Marine Safety Monitor (годовая, на организацию)</td><td>890 000 ₽</td></tr>
-                        <tr><td>Пилотное внедрение (1 объект, до 2 месяцев)</td><td>250 000 ₽</td></tr>
-                        <tr><td>Техническая поддержка (12 месяцев)</td><td>150 000 ₽</td></tr>
-                        <tr><td>Доработка / адаптация под заказчика (час)</td><td>5 000 ₽</td></tr>
-                    </table>
-                </div>
-                <div class="price-box">
-                    <h3>Energy Analytics Platform</h3>
-                    <table>
-                        <tr><td>Лицензия Energy Analytics Platform (годовая, на организацию)</td><td>890 000 ₽</td></tr>
-                        <tr><td>Пилотное внедрение (1 объект, до 2 месяцев)</td><td>250 000 ₽</td></tr>
-                        <tr><td>Техническая поддержка (12 месяцев)</td><td>150 000 ₽</td></tr>
-                    </table>
-                </div>
-                <p class="text-muted" style="margin-bottom:8px;">Пилот может засчитываться в стоимость лицензии при переходе на промышленную эксплуатацию — по соглашению сторон. Для государственных и крупных заказчиков возможны индивидуальные условия.</p>
-                <p class="text-muted" style="margin-bottom:24px;">Контакт: shepet007@mail.ru, +7 (914) 679-70-13</p>
                 <h2 style="margin-top:56px;">1. Marine Safety Monitor</h2>
-                <p class="text-muted" style="margin-bottom:20px;">
-                    Программное обеспечение для учёта инцидентов и управления эксплуатационными рисками
-                    на морском и речном флоте. Автономная работа на рабочем месте пользователя.
-                </p>
+                <p class="text-muted" style="margin-bottom:20px;">Программное обеспечение для учёта инцидентов и управления эксплуатационными рисками на морском и речном флоте. Автономная работа на рабочем месте пользователя.</p>
 
                 <h3>1.1. Функциональные характеристики</h3>
                 <ul style="margin:12px 0 24px 20px; color:#cbd5e1; line-height:1.8;">
@@ -1116,10 +725,6 @@
                     <li>работа без обязательного постоянного подключения к сети Интернет;</li>
                     <li>графический интерфейс пользователя.</li>
                 </ul>
-                <p style="margin:0 0 24px; color:#94a3b8; font-size:0.95rem;">
-                    Развитие контура «судно — береговой центр» и расширенной синхронизации
-                    выполняется в рамках пилотных внедрений и договорных доработок.
-                </p>
 
                 <h3>1.2. Установка и эксплуатация</h3>
                 <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Системные требования (типовые):</strong></p>
@@ -1129,26 +734,9 @@
                     <li>свободное место на диске: от 500 МБ;</li>
                     <li>разрешение экрана: от 1280×720.</li>
                 </ul>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Установка:</strong></p>
-                <ol style="margin:0 0 16px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>получить у правообладателя дистрибутив в виде исполняемого файла (.exe);</li>
-                    <li>сохранить файл на компьютер;</li>
-                    <li>запустить .exe (при запросе системы безопасности Windows — подтвердить запуск);</li>
-                    <li>отдельный мастер установки не требуется — программа готова к работе после запуска.</li>
-                </ol>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Эксплуатация:</strong></p>
-                <ul style="margin:0 0 24px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>работа через графический интерфейс: ввод и просмотр данных, использование модулей текущей версии;</li>
-                    <li>данные сохраняются локально на компьютере пользователя;</li>
-                    <li>резервное копирование — копирование каталога/файлов данных программы;</li>
-                    <li>обновления и доработки предоставляются правообладателем в рамках пилота или договора.</li>
-                </ul>
 
                 <h2 style="margin-top:40px;">2. Energy Analytics Platform</h2>
-                <p class="text-muted" style="margin-bottom:20px;">
-                    Программное обеспечение для учёта инцидентов и управления рисками
-                    на энергетических объектах. Автономная работа на рабочем месте пользователя.
-                </p>
+                <p class="text-muted" style="margin-bottom:20px;">Программное обеспечение для учёта инцидентов и управления рисками на энергетических объектах. Автономная работа на рабочем месте пользователя.</p>
 
                 <h3>2.1. Функциональные характеристики</h3>
                 <ul style="margin:12px 0 24px 20px; color:#cbd5e1; line-height:1.8;">
@@ -1160,53 +748,55 @@
                     <li>on-premise использование без обязательной постоянной связи с внешними облачными сервисами;</li>
                     <li>графический интерфейс пользователя.</li>
                 </ul>
-                <p style="margin:0 0 24px; color:#94a3b8; font-size:0.95rem;">
-                    Расширение модулей и интеграций выполняется в рамках пилотных внедрений
-                    и договорных доработок под задачи заказчика.
-                </p>
 
-                <h3>2.2. Установка и эксплуатация</h3>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Системные требования (типовые):</strong></p>
-                <ul style="margin:0 0 16px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>ОС: Windows 10 / 11 (64-bit) или совместимая;</li>
-                    <li>ОЗУ: от 4 ГБ (рекомендуется 8 ГБ);</li>
-                    <li>свободное место на диске: от 500 МБ;</li>
-                    <li>разрешение экрана: от 1280×720.</li>
+                <h2 style="margin-top:40px;">3. Салон Lite / Клиника Lite / Магазин Lite</h2>
+                <p class="text-muted" style="margin-bottom:20px;">Программное обеспечение для учёта клиентов, записей, оплат и расходников в малом бизнесе. Автономная работа на рабочем месте пользователя.</p>
+
+                <h3>3.1. Функциональные характеристики</h3>
+                <ul style="margin:12px 0 24px 20px; color:#cbd5e1; line-height:1.8;">
+                    <li>учёт клиентов (или пациентов/товаров);</li>
+                    <li>учёт визитов (или приёмов/продаж);</li>
+                    <li>учёт оплат;</li>
+                    <li>учёт склада (приход/расход);</li>
+                    <li>дашборд и рекомендации;</li>
+                    <li>локальное хранение данных;</li>
+                    <li>работа без обязательного постоянного подключения к сети Интернет.</li>
                 </ul>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Установка:</strong></p>
-                <ol style="margin:0 0 16px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>получить у правообладателя дистрибутив в виде исполняемого файла (.exe);</li>
-                    <li>сохранить файл на компьютер;</li>
-                    <li>запустить .exe (при запросе системы безопасности Windows — подтвердить запуск);</li>
-                    <li>отдельный мастер установки не требуется — программа готова к работе после запуска.</li>
-                </ol>
-                <p style="margin:8px 0 12px; color:#cbd5e1;"><strong>Эксплуатация:</strong></p>
-                <ul style="margin:0 0 24px 20px; color:#cbd5e1; line-height:1.8;">
-                    <li>работа через графический интерфейс: ввод и просмотр данных, модули текущей версии;</li>
-                    <li>данные сохраняются локально на компьютере пользователя;</li>
-                    <li>резервное копирование — копирование каталога/файлов данных программы;</li>
-                    <li>обновления и доработки — у правообладателя в рамках пилота или договора.</li>
+
+                <h2 style="margin-top:40px;">4. Явка</h2>
+                <p class="text-muted" style="margin-bottom:20px;">Программное обеспечение для учёта клиентов, абонементов и посещений в клубах и кружках. Автономная работа.</p>
+
+                <h3>4.1. Функциональные характеристики</h3>
+                <ul style="margin:12px 0 24px 20px; color:#cbd5e1; line-height:1.8;">
+                    <li>учёт клиентов и абонементов;</li>
+                    <li>отметка посещений и списание занятий;</li>
+                    <li>учёт оплат и долгов;</li>
+                    <li>напоминания («остался 1 урок»);</li>
+                    <li>отчёты и выгрузка в Excel;</li>
+                    <li>локальное хранение данных;</li>
+                    <li>работа без обязательного постоянного подключения к сети Интернет.</li>
+                </ul>
+
+                <h2 style="margin-top:40px;">5. Автошкола Lite</h2>
+                <p class="text-muted" style="margin-bottom:20px;">Программное обеспечение для учёта курсантов, групп, часов вождения и экзаменов в автошколах. Автономная работа.</p>
+
+                <h3>5.1. Функциональные характеристики</h3>
+                <ul style="margin:12px 0 24px 20px; color:#cbd5e1; line-height:1.8;">
+                    <li>учёт курсантов и групп;</li>
+                    <li>списание часов теории и вождения;</li>
+                    <li>учёт оплат и долгов;</li>
+                    <li>учёт результатов экзаменов (теория, площадка, город);</li>
+                    <li>напоминания и отчёты;</li>
+                    <li>локальное хранение данных;</li>
+                    <li>работа без обязательного постоянного подключения к сети Интернет.</li>
                 </ul>
 
                 <div class="info-cards" style="margin-top:32px;">
-                    <div class="info-card">
-                        <h4>Получение дистрибутива</h4>
-                        <p>Исполняемый файл (.exe) и пояснения по запуску предоставляются
-                        правообладателем по запросу: shepet007@mail.ru,
-                        +7 (914) 679-70-13 — в рамках пилота или лицензионного договора.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>Актуальность</h4>
-                        <p>Документация соответствует текущей поставке ПО.
-                        При изменении функций или порядка запуска страница обновляется.
-                        Прямая ссылка: <a href="https://www.plushandko.ru/#docs" style="color:#2dd4bf;">www.plushandko.ru/#docs</a></p>
-                    </div>
+                    <div class="info-card"><h4>Получение дистрибутива</h4><p>Исполняемый файл (.exe) и пояснения по запуску предоставляются правообладателем по запросу: shepet007@mail.ru, +7 (914) 679-70-13 — в рамках пилота или лицензионного договора.</p></div>
+                    <div class="info-card"><h4>Актуальность</h4><p>Документация соответствует текущей поставке ПО. При изменении функций или порядка запуска страница обновляется. Прямая ссылка: <a href="https://www.plushandko.ru/#docs" style="color:#2dd4bf;">www.plushandko.ru/#docs</a></p></div>
                 </div>
 
-                <p style="margin-top:40px; font-size:0.9rem; color:#94a3b8;">
-                    Настоящая страница размещена для целей соответствия требованиям к сведениям
-                    о программном обеспечении, размещаемым на сайте правообладателя.
-                </p>
+                <p style="margin-top:40px; font-size:0.9rem; color:#94a3b8;">Настоящая страница размещена для целей соответствия требованиям к сведениям о программном обеспечении, размещаемым на сайте правообладателя.</p>
             </div>
         </section>
     </div>
@@ -1219,15 +809,18 @@
         <div class="footer-links">
             <a href="#fleet" data-page="fleet">Marine Safety Monitor</a>
             <a href="#energy" data-page="energy">Energy Analytics Platform</a>
+            <a href="#salon" data-page="salon">Салон Lite</a>
+            <a href="#clinic" data-page="clinic">Клиника Lite</a>
+            <a href="#shop" data-page="shop">Магазин Lite</a>
+            <a href="#yavka" data-page="yavka">Явка</a>
+            <a href="#autoschool" data-page="autoschool">Автошкола Lite</a>
             <a href="#docs" data-page="docs">Документация</a>
             <a href="#prices" data-page="prices">Цены</a>
             <a href="#" data-nav="about">О разработчике</a>
             <a href="#" data-nav="contact">Контакты</a>
         </div>
         <p>© 2026 Plush&Ko Analytics. Все права защищены.</p>
-        <p style="font-size:0.75rem; opacity:0.7; margin-top:6px;">
-            ИП Щепетильников А.В. · ИНН 254002476537 · ОГРНИП 326774600433115
-        </p>
+        <p style="font-size:0.75rem; opacity:0.7; margin-top:6px;">ИП Щепетильников А.В. · ИНН 254002476537 · ОГРНИП 326774600433115</p>
     </div>
 </footer>
 
@@ -1236,10 +829,17 @@
     'use strict';
 
     const homePage = document.getElementById('page-home');
-    const fleetPage = document.getElementById('page-fleet');
-    const energyPage = document.getElementById('page-energy');
-    const docsPage = document.getElementById('page-docs');
-    const pricesPage = document.getElementById('page-prices');
+    const pages = {
+        fleet: document.getElementById('page-fleet'),
+        energy: document.getElementById('page-energy'),
+        salon: document.getElementById('page-salon'),
+        clinic: document.getElementById('page-clinic'),
+        shop: document.getElementById('page-shop'),
+        yavka: document.getElementById('page-yavka'),
+        autoschool: document.getElementById('page-autoschool'),
+        docs: document.getElementById('page-docs'),
+        prices: document.getElementById('page-prices')
+    };
     const dropdownToggle = document.getElementById('dropdownToggle');
     const dropdownMenu = document.getElementById('dropdownMenu');
     const mobileToggle = document.getElementById('mobileToggle');
@@ -1249,48 +849,20 @@
         if (typeof updateHash === 'undefined') updateHash = true;
 
         homePage.style.display = 'none';
-        if (fleetPage) {
-            fleetPage.classList.remove('active');
-            fleetPage.style.display = 'none';
-        }
-        if (energyPage) {
-            energyPage.classList.remove('active');
-            energyPage.style.display = 'none';
-        }
-        if (docsPage) {
-            docsPage.classList.remove('active');
-            docsPage.style.display = 'none';
-        }
-        if (pricesPage) {
-            pricesPage.classList.remove('active');
-            pricesPage.style.display = 'none';
-        }
+        Object.values(pages).forEach(p => {
+            if (p) { p.classList.remove('active'); p.style.display = 'none'; }
+        });
 
         if (pageId === 'home') {
             homePage.style.display = 'block';
             if (updateHash) {
-                if (history.replaceState) {
-                    history.replaceState(null, '', window.location.pathname + window.location.search);
-                } else {
-                    window.location.hash = '';
-                }
+                if (history.replaceState) history.replaceState(null, '', window.location.pathname + window.location.search);
+                else window.location.hash = '';
             }
-        } else if (pageId === 'fleet' && fleetPage) {
-            fleetPage.style.display = 'block';
-            setTimeout(function() { fleetPage.classList.add('active'); }, 10);
-            if (updateHash) window.location.hash = 'fleet';
-        } else if (pageId === 'energy' && energyPage) {
-            energyPage.style.display = 'block';
-            setTimeout(function() { energyPage.classList.add('active'); }, 10);
-            if (updateHash) window.location.hash = 'energy';
-        } else if (pageId === 'docs' && docsPage) {
-            docsPage.style.display = 'block';
-            setTimeout(function() { docsPage.classList.add('active'); }, 10);
-            if (updateHash) window.location.hash = 'docs';
-        } else if (pageId === 'prices' && pricesPage) {
-            pricesPage.style.display = 'block';
-            setTimeout(function() { pricesPage.classList.add('active'); }, 10);
-            if (updateHash) window.location.hash = 'prices';
+        } else if (pages[pageId]) {
+            pages[pageId].style.display = 'block';
+            setTimeout(() => pages[pageId].classList.add('active'), 10);
+            if (updateHash) window.location.hash = pageId;
         }
 
         if (navLinks) navLinks.classList.remove('mobile-open');
@@ -1302,7 +874,7 @@
 
     function pageFromHash() {
         var h = (window.location.hash || '').replace(/^#/, '').toLowerCase();
-        if (h === 'fleet' || h === 'energy' || h === 'docs' || h === 'prices') return h;
+        if (pages[h]) return h;
         return 'home';
     }
 
@@ -1318,9 +890,7 @@
         el.addEventListener('click', function(e) {
             e.preventDefault();
             var page = this.getAttribute('data-page');
-            if (page === 'home' || page === 'fleet' || page === 'energy' || page === 'docs' || page === 'prices') {
-                showPage(page, true);
-            }
+            if (page === 'home' || pages[page]) showPage(page, true);
         });
     });
 
@@ -1366,7 +936,6 @@
         showPage(pageFromHash(), false);
     });
 
-
     var contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
@@ -1376,12 +945,7 @@
             var company = (this.company.value || '').trim();
             var message = (this.message.value || '').trim();
             var subject = encodeURIComponent('Запрос с сайта Plush&Ko Analytics');
-            var body = encodeURIComponent(
-                'Имя: ' + name + '\n' +
-                'Email: ' + email + '\n' +
-                'Компания: ' + company + '\n\n' +
-                message
-            );
+            var body = encodeURIComponent('Имя: ' + name + '\nEmail: ' + email + '\nКомпания: ' + company + '\n\n' + message);
             window.location.href = 'mailto:shepet007@mail.ru?subject=' + subject + '&body=' + body;
         });
     }
